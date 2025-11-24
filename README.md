@@ -2,11 +2,12 @@
 
 [![Made with MyST](https://img.shields.io/badge/made%20with-myst-orange)](https://myst.tools)
 
-This repository contains the files used in the [quickstart guide](https://mystmd.org/guide/quickstart), and can be used to follow that guide, before trying MyST with your own content.
+This repository contains my CMB Polarization Notes, built using MyST Markdown and Jupyter notebooks.
+It’s a living collection of theory, calculations, and reproducible notebooks for studying the Cosmic Microwave Background.
 
-> **Note** This is **not** a good example of an actual MyST project! The repositories purpose is to be a simple markdown + notebook repository that can be transformed throughout a tutorial.
+> **Note** This project is intended as a personal, structured scientific notebook.
 
-The goals of the [quickstart guide](https://myst.tools/docs/mystjs/quickstart) are:
+The goals of this project are:
 
 1. Create a `myst` site, using the standard template
 2. Improve the frontmatter, to add authors, affiliations and other metadata

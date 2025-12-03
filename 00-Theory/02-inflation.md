@@ -1,6 +1,8 @@
 # Inflation
 
 ## Horizon Problem
+
+### Review of cosmological framework
 ```{important} Pillars of cosmology
 - **Cosmological Principle:** The universe is *homogeneous* and *isotropic* on the large scales.
 - The observational fact that the universe is *expanding*.
@@ -33,8 +35,20 @@ where $H = \partial_t \ln a$ is the Hubble parameter; $\rho$ and $p$ are the ene
 
 To study the causal structure of FLRW metric, we need to understand the light propagation, so we will define the *conformal time* for convenient:
 $$
-d\tau = \dfrac{dt}{a(t)}
+d\eta = \dfrac{dt}{a(t)}
 $$
 
-We can rewrite the FLRW metric \@ref(eq:friedmann)
+We can rewrite the FLRW metric as:
+$$
+ds^2 = a^2(t)[-d\eta^2 + dr^2 + r^2 d\Omega^2] = a^2(t) \eta_{\mu \nu} dx^\mu dx^\nu
+$$
 
+where $\eta_{\mu \nu}$ is the static Minkowski metric.
+
+### Causal structure
+The radial propagation of light is characterized by the following two-dimensional line element
+$$
+ds^2 = a^2(\tau) [-d\eta^2 + dr^2]
+$$
+
+For light

@@ -1,5 +1,6 @@
-# Maximum Likelihood Formalism
+# Parametric Component Separation
 
+## Baye's theorem
 Our objective is to determine the parameter set $\hat{\xi}$ for the Mueller matrix $\mathbf{A}(\hat{\xi})$ that maximises the probability of observing the data given a sky signal:
 
 ```{math}
@@ -25,6 +26,7 @@ where:
 Maximising the posterior probability addresses the question: "Given the observations, what is the most plausible model?" We seek $\hat{\xi}$ that maximises $\frac{P(\mathbf{d}|\mathbf{s}) P(\mathbf{s})}{P(\mathbf{d})}$. The term $P(\mathbf{d})$ may be neglected as it is independent of $\hat{\xi}$. Assuming a uniform prior for $P(\mathbf{s})$, the optimisation reduces to maximising the likelihood $P(\mathbf{d}|\mathbf{s})$.
 ```
 
+## Maximum Likelihood Formalism
 In our formulation, $\mathbf{A} \mathbf{s}$ is well-characterised, hence the likelihood probability depends solely on the noise probability $\mathcal{L}(\mathbf{n})$. Assuming the noise $\mathbf{n}$ added to the input maps follows a multivariate Gaussian distribution with zero mean and covariance $\mathbf{N} \equiv \langle \mathbf{n} \mathbf{n}^\top \rangle$:
 
 ```{math}
@@ -97,6 +99,7 @@ This solution requires that all columns of $\mathbf{A}$ are linearly independent
 $, ensuring the invertibility of $\mathbf{A}^\top \mathbf{N}^{-1} \mathbf{A}$.
 ```
 
+## Spectral Likelihood
 Substituting $\hat{\mathbf{s}}$ into the second term of $-2\log\mathcal{L}(\mathbf{n})$:
 
 ```{math}

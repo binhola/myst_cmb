@@ -55,7 +55,7 @@ The CMB map was first detected by the COBE satellite [Smoot et al. (1992)](https
 
 Due to local quadrupole anisotropy during decoupling, the CMB radiation is polarized at the 10% level. The polarization can be divided into two types: rotational-free E-mode and gradient-free B-mode, analogous to electric and magnetic fields. Large-amplitude scalar perturbations give rise to CMB temperature anisotropies and E-modes. Small-amplitude primordial gravitational waves are expected to generate both E-modes and B-modes. Because only primordial gravitational waves can produce B-modes, it becomes the probe for cosmic inflation. The E-mode polarization comes at a tiny fluctuation scale of $10^{-6}$ K, and B-mode polarization is expected to be $\sim 10-100$ times smaller.
 
-```{figure} images/cmb_decomposition.png
+```{figure} ../images/cmb_decomposition.png
 ---
 width: 100%
 name: cmb-decomposition
@@ -65,7 +65,7 @@ Illustration of CMB at different scales, from monopole to polarized anisotropies
 
 The observed quantities that we use to measure CMB are so-called Stokes parameters $\begin{bmatrix} I \\ Q \\ U \\ V \end{bmatrix}$, where $I$ encodes the temperature, $Q$ and $U$ encode the linear polarization, and $V$ encodes the circular polarization. $Q$ includes the horizontal and vertical directions of polarization, and $U$ includes the $45^\circ$ direction of polarization. $V$ is expected to vanish as Thomson scattering does not generate this type of polarization.
 
-```{figure} images/litebird_angular_spectrum.png
+```{figure} ../images/litebird_angular_spectrum.png
 ---
 width: 70%
 name: litebird-spectrum
@@ -102,7 +102,7 @@ The best results of CMB anisotropies and E-modes including $C_l^{TT}$, $C_l^{TE}
 
 Upcoming projects such as ground-based SO, CMB-S4, and spaceborne LiteBIRD, with the expectation of reaching $r \sim \mathcal{O}(10^{-3})$, require us to accurately distinguish the CMB blackbody from other sources: astrophysical sources (polarized dust and synchrotron), atmosphere for ground-based telescopes, and instrumental systematic effects.
 
-```{figure} images/cmb_components.png
+```{figure} ../images/cmb_components.png
 ---
 width: 80%
 name: cmb-contaminants

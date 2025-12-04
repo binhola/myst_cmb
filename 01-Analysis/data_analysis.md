@@ -22,7 +22,7 @@ where:
 - $P(\mathbf{d})$ is the marginal likelihood or evidence
 
 ```{note} Bayesian Interpretation
-:open:
+:class: dropdown
 Maximising the posterior probability addresses the question: "Given the observations, what is the most plausible model?" We seek $\hat{\xi}$ that maximises $\frac{P(\mathbf{d}|\mathbf{s}) P(\mathbf{s})}{P(\mathbf{d})}$. The term $P(\mathbf{d})$ may be neglected as it is independent of $\hat{\xi}$. Assuming a uniform prior for $P(\mathbf{s})$, the optimisation reduces to maximising the likelihood $P(\mathbf{d}|\mathbf{s})$.
 ```
 
@@ -57,7 +57,7 @@ The optimal estimate of the sky signal, $\hat{\mathbf{s}}$, is obtained by minim
 ```
 
 ```{note} Derivation of Optimal Signal Estimate
-:open:
+:class: dropdown
 The solution is derived by minimising the negative log-likelihood:
 
 \begin{equation}
@@ -94,7 +94,7 @@ The minimum $\hat{\mathbf{s}}$ is found by setting the derivative of the log-lik
 ```
 
 ```{caution} Matrix Invertibility Condition
-:open:
+:class: dropdown
 This solution requires that all columns of $\mathbf{A}$ are linearly independent, meaning $\mathbf{A}$ has full column rank. Consequently, $\mathrm{rank}(\mathbf{A}^\top \mathbf{N}^{-1}\mathbf{A}) = \mathrm{rank}(\mathbf{A})
 $, ensuring the invertibility of $\mathbf{A}^\top \mathbf{N}^{-1} \mathbf{A}$.
 ```
@@ -125,6 +125,6 @@ Since $\mathbf{d}^\top\mathbf{N}^{-1}\mathbf{d}$ is constant, it may be neglecte
 This expression constitutes the *spectral likelihood*.
 
 ```{caution} Square Matrix Limitation
-:open:
+:class: dropdown
 Note that if $\mathbf{A}$ possesses full column rank and is additionally a square matrix, then $\mathbf{A}$ becomes invertible. In such cases, the spectral likelihood approach would not be advantageous.
 ```

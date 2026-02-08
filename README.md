@@ -18,8 +18,7 @@ They are written as **lecture notes**, combining theory, physical intuition, and
 - Collect key equations, definitions, and derivations  
 - Serve as long-term study and revision notes  
 
-> **Note**  
-> This project is intended for **personal academic use** by NPAC students.  
+> **Note**: This project is intended for **personal academic use** by NPAC students.  
 > It is not an official course document and does not replace attending lectures.
 
 ---
@@ -47,7 +46,3 @@ They are written as **lecture notes**, combining theory, physical intuition, and
 ## Status
 
 🚧 **Work in progress** — notes are continuously updated and refined.
-
----
-
-For **NPAC students in cosmology**.

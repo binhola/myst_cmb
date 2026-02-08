@@ -1,4 +1,4 @@
-# Introduction
+# Introduction (XXX Draft)
 
 ## The Inflationary Universe
 
@@ -113,3 +113,5 @@ Illustration of various contaminants affecting the CMB signal before it reaches 
 The main framework that has been proven to be successful in precedent experiments is the component separation method, including two main approaches: blind and parametric. The blind method imposes conditions on spectra and separates the components based on their statistical properties; some examples include `SMICA`, `NILC`, and `SEVEM`. The parametric method introduces a model based on the physical nature of the phenomena, such as emission laws of foregrounds or multiplication of the gains of instruments. Notable examples are `FGBuster` and `Commander`.
 
 With the deployment of more detectors in new CMB instruments, sensitivity, and data volume have increased significantly, leading to greater instrumental complexity. Consequently, there are challenges in characterizing and calibrating systematic effects that do not average out over time and contaminate measurements. Numerous instrumental effects must be accounted for in the calibration process, including the optical reflection on the cover of a telescope, the beam's far side lobes [Leloup et al. (2023)](https://arxiv.org/abs/2306.00001), gains, bandpasses [Ghigna et al. (2020)](https://arxiv.org/abs/2007.01933), polarization angles [Abitbol et al. (2021)](https://arxiv.org/abs/2103.05616), and electronic cross-talk [Fabbian et al. (2021)](https://arxiv.org/abs/2104.08133). These well-known hardware characteristics can broadly lead to two main effects on the Stokes parameters: Intensity-to-Polarization leakage (I-to-P or $T \rightarrow E, B$), and Cross-Polarization ($E \leftrightarrow B$).
+
+**XXX Draft**

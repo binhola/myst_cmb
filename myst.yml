@@ -2,7 +2,7 @@
 version: 1
 project:
   # id:
-  title: CMB Notes
+  title: Cosmology Notes
   # description:
   # keywords: []
   authors:
@@ -13,13 +13,14 @@ project:
           # ror: https://ror.org/03rmrcq20
           # isni: 0000 0001 2288 9830
           department: Cosmology
-          # address: 2020 – 2207 Main Mall
           city: Paris
-          # region: 
           country: France
-          # postal_code: V6T 1Z4
           phone: 07 43 25 78 57
-          # bluesky: '@eoas.ubc.ca'
+  exports:
+    - format: pdf
+      template: arxiv_two_column
+      outputs: exports/test.pdf
+
   github: https://github.com/binhola/myst_cmb
   # To autogenerate a Table of Contents, run "myst init --write-toc"
 site:

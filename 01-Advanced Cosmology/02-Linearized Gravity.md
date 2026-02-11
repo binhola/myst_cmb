@@ -56,7 +56,7 @@ To obtain physically meaningful quantities, one must combine components of $\del
 Such combinations are called **gauge‑invariant variables**.  
 Bardeen’s formalism (and later extensions) provides a systematic way to construct them.
 
-## 3. A 2D Toy Example
+#### A 2D Toy Example
 
 The following exercise illustrates how a coordinate transformation can “absorb” a perturbation, making a perturbed universe appear perfectly homogeneous.
 

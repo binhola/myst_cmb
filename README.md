@@ -5,6 +5,8 @@
 This repository contains my **personal Cosmology lecture notes**, written as a structured scientific notebook using **MyST Markdown**.
 
 These notes closely follow the lectures taught in the NPAC cosmology curriculum:
+- **General Relativity** - *Karim Noui*
+- **Astroparticles and Cosmology** ([Lecture Notes](https://m2-npac-ac.pages.in2p3.fr/)) - *Jeremy Neveu*, *Jonathan Biteau*
 - **Advanced Cosmology** — *Josquin Errard, Pauline Zarrouk*
 - **Additional Topics in Astroparticles and Cosmology** — *Daniel Steer, Pauline Zarrouk, Matteo Cerruti*
 
@@ -14,22 +16,22 @@ They are written as **lecture notes**, combining theory, physical intuition, and
 
 ## Purpose
 
-- Organize lecture material in a clean and readable format  
-- Collect key equations, definitions, and derivations  
-- Serve as long-term study and revision notes  
+- Organize lecture material in a clean and readable format.
+- Collect key equations, definitions, and derivations.
+- Serve as long-term study and revision notes.
 
-> **Note**: This project is intended for **personal academic use** by NPAC students.  
+> **Note** This project is intended for **personal academic use** by NPAC students.  
 > It is not an official course document and does not replace attending lectures.
 
 ---
 
 ## Topics Covered
 
-- Cosmological perturbation theory  
-- CMB physics and statistics  
-- Inflation and early-universe physics  
-- Large-scale structure  
-- Astroparticle cosmology  
+- General Relativity
+- Cosmological perturbation theory 
+- CMB physics and statistics ...
+- Inflation and early-universe physics  ... 
+- Large-scale structure ...
 
 (The content grows as the lectures progress.)
 
@@ -38,7 +40,7 @@ They are written as **lecture notes**, combining theory, physical intuition, and
 ## Tools
 
 - **MyST Markdown** for scientific writing  
-- LaTeX-style mathematics  
+- LaTeX-style mathematics 
 - Designed to be built with **MyST / Jupyter Book**
 
 ---

@@ -46,6 +46,7 @@ $$
 where we set $a_0 = 1$.
 
 ```{exercise} Derivation of $\sum \Omega_i = 1$ for flat universe
+:class: dropdown
 For $k=0$ (flat), the Friedmann equation is:
 $$
 H^2 = \dfrac{8\pi G}{3} \rho_{\rm tot}
@@ -82,6 +83,8 @@ $$
 $$
 
 ```{exercise} Detailed derivation of $\rho_\gamma$
+:class: dropdown
+
 We have:
 $$
 \rho_\gamma = \dfrac{g_\gamma}{(2\pi)^3} \int d^3p \, p \dfrac{1}{e^{p/T} - 1}
@@ -109,6 +112,8 @@ $$
 After electron-positron annihilation, the photon temperature increases relative to neutrinos.
 
 ```{exercise} Derivation of $T_\nu/T_\gamma = (4/11)^{1/3}$
+:class: dropdown
+
 Before annihilation ($T \gtrsim 1$ MeV), photons, electrons, positrons, and neutrinos are in thermal equilibrium with $T_\gamma = T_\nu = T_e$.
 
 The entropy density is:
@@ -246,6 +251,8 @@ $$
   $$
 
 ```{exercise} Radiation-dominated universe
+:class: dropdown
+
 For a flat, radiation-dominated universe ($\Omega_{r,0}=1$):
 $$
 H^2 = H_0^2 a^{-4}
@@ -258,6 +265,8 @@ where $R_{H_0} = c/H_0$ (restoring $c$, $d_{\rm obs} = c/H_0$).
 ```
 
 ```{exercise} Matter-dominated (Einstein-de Sitter) universe
+:class: dropdown
+
 For a flat, matter-dominated universe ($\Omega_{m,0}=1$):
 $$
 H^2 = H_0^2 a^{-3}

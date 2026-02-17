@@ -305,6 +305,8 @@ $$
 where $. = \dfrac{\partial}{\partial \eta}$
 
 :::{prf:proof} Scalar transformation laws
+:class: dropdown
+
 Given $\bar g_{\mu \nu} = \begin{pmatrix}
   a^2 & 0 \\ 0 & -a^2 \delta_{ij}
 \end{pmatrix}$ and $\begin{cases}
@@ -381,6 +383,8 @@ $$
 
 ## 4. Linearized Einstein Equation
 We will work with Newton gauge.
+
+### Connection Coefficients
 The connection coefficients associated with the Newton-gauge metric are
 $$
 \Gamma^0_{00} &= \mathcal{H} + \dot \phi \\
@@ -392,6 +396,8 @@ $$
 $$
 
 :::{prf:proof} Connection coefficients
+:class: dropdown
+
 The equation for connection coefficients
 $$\Gamma^\alpha_{\mu \nu} &= \dfrac{1}{2} g^{\alpha \beta} (\partial_\mu g_{\beta \nu} + \partial_\nu g_{\mu \beta} - \partial_\beta g_{\mu \nu}) 
 $$
@@ -419,6 +425,7 @@ $$
 $$
 :::
 
+### Ricci tensor
 **Ricci tensor** can be expressed in terms of the connection as
 $$
 R_{\mu \nu} = \partial_\lambda \Gamma^\lambda_{\mu \nu} - \partial_\nu \Gamma^\lambda_{\mu \lambda} + \Gamma^\lambda_{\lambda \rho} \Gamma^\rho_{\mu \nu} - \Gamma^\rho_{\mu \lambda} \Gamma^\lambda_{\nu \rho}
@@ -426,29 +433,148 @@ $$
 
 Substituting the perturbed connection coefficients, we find
 $$
-R_{00} &= \\
-R_{0i} &= \\
-R_{ij} &= \\
+R_{00} &= -3 \dot{\mathcal{H}} + \nabla^2 \phi + 3 \mathcal{H}(\dot \phi + \dot \psi) + 3 \ddot{\psi}\\
+R_{0i} &= 2 \partial_i(\dot \psi + \mathcal{H} \phi)\\
+R_{ij} &= [\mathcal{\dot H} + 2\mathcal{H}^2 - \ddot{\psi} + \nabla^2 \psi - 2(\mathcal{\dot H} + 2\mathcal{H}^2)(\phi + \psi) - \mathcal{H}\dot \phi - 5 \mathcal{H} \dot \psi]\delta_{ij} + \partial_i \partial_j(\psi - \phi)\\
 $$
 
 :::{prf:proof} perturbed Ricci tensors
+:class: dropdown
+
 $$
 R_{00} = \partial_\rho \Gamma^\rho_{00} - \partial_0 \Gamma^\rho_{0\rho} + \Gamma^\alpha_{00} \Gamma^\rho_{\alpha \rho} - \Gamma^\alpha_{0\rho} \Gamma^\rho_{0 \alpha}
 $$
 The term with $\rho=0$ cancels out, we sum over $\rho = i$ only
 $$
 R_{00} &= \partial_i \Gamma^i_{00} - \partial_0 \Gamma^\rho_{0i} + \Gamma^\alpha_{00} \Gamma^i_{\alpha i} - \Gamma^\alpha_{0i} \Gamma^i_{0 \alpha} \\
-&= \partial_i \Gamma^i_{00} - \partial_0 \Gamma^\rho_{0i} + \Gamma^0_{00} \Gamma^i_{0 i} + \underbrace{\Gamma^j_{00} \Gamma^i_{ji}}_{\mathcal{O(2)}} - \underbrace{\Gamma^0_{0i} \Gamma^i_{00}}_{\mathcal{O(2)}} - \Gamma^j_{0i} \Gamma^i_{0 j} \\
+&= \partial_i \Gamma^i_{00} - \partial_0 \Gamma^i_{0i} + \Gamma^0_{00} \Gamma^i_{0 i} + \underbrace{\Gamma^j_{00} \Gamma^i_{ji}}_{\mathcal{O(2)}} - \underbrace{\Gamma^0_{0i} \Gamma^i_{00}}_{\mathcal{O(2)}} - \Gamma^j_{0i} \Gamma^i_{0 j} \\
 &= \nabla^2 \phi - 3 \partial_0 (\mathcal{H} - \dot \psi) + 3(\mathcal{H} + \dot \phi)(\mathcal{H} - \dot \psi) - (\mathcal{H} - \dot \psi)^2 \delta^j_i \delta^i_j \\
 &= \boxed{-3 \dot{\mathcal{H}} + \nabla^2 \phi + 3 \mathcal{H}(\dot \phi + \dot \psi) + 3 \ddot{\psi}} \\
 R_{0i} &= \partial_\rho \Gamma^\rho_{0i} - \partial_i \Gamma^\rho_{0\rho} + \Gamma^\rho_{\rho \alpha} \Gamma^\alpha_{0i} - \Gamma^\rho_{0\alpha} \Gamma^\alpha_{i\rho} \\
-&= \partial_0 \Gamma^0_{0i} + \partial_j \Gamma^j_{0i} - \partial_i \Gamma^0_{00} - \partial_i \Gamma^j_{0j} + \Gamma^0_{0\alpha} \Gamma^\alpha_{0i} + \Gamma^j_{j \alpha} \Gamma^\alpha_{0i} - \Gamma^0_{0\alpha} \Gamma^\alpha_{i0} - \Gamma^j_{0\alpha} \Gamma^\alpha_{ij} \\
-&= \partial_0 \Gamma^0_{0i} + \partial_j \Gamma^j_{0i} - \partial_i \Gamma^0_{00} - \partial_i \Gamma^j_{0j} + \Gamma^0_{0\alpha} \Gamma^\alpha_{0i} + \Gamma^j_{j \alpha} \Gamma^\alpha_{0i} - \Gamma^0_{0\alpha} \Gamma^\alpha_{i0} - \Gamma^j_{0\alpha} \Gamma^\alpha_{ij} \\
+&= [\partial_i(\dot \phi - \dot \psi) ]-[ \partial_i \dot \phi - 3 \partial_i \dot \psi ] + [5 \mathcal{H} \partial_i \phi - 3 \mathcal{H} \partial_i \psi] - [3 \mathcal{H} \partial_i(\phi - \psi)] \\
+&= \boxed{2 \partial_i (\dot \psi + H \phi)} \\
+R_{ij} &= \partial_\rho \Gamma^\rho_{ij} - \partial_j \Gamma^\rho_{i\rho} + \Gamma^\rho_{\rho \alpha} \Gamma^\alpha_{ij} - \Gamma^\rho_{i\alpha} \Gamma^\alpha_{j\rho} \\
+&= \bigl[\dot{\mathcal{H}} - \ddot\psi - 2\dot{\mathcal{H}}(\phi+\psi) - 2\mathcal{H}(\dot\phi+\dot\psi) + \nabla^2\psi\bigr]\delta_{ij} - 2\partial_i\partial_j\psi \\ 
+& \quad + \partial_i\partial_j\phi - 3\partial_i\partial_j\psi \\
+& \quad + 4\mathcal{H}^2\delta_{ij} + \bigl[\mathcal{H}\dot\phi - 7\mathcal{H}\dot\psi - 8\mathcal{H}^2(\phi+\psi)\bigr]\delta_{ij} \\ 
+& \quad + 2\mathcal{H}^2\delta_{ij} - 4\mathcal{H}\bigl[\dot\psi + \mathcal{H}(\phi+\psi)\bigr]\delta_{ij} \\
+&= \boxed{[\mathcal{\dot H} + 2\mathcal{H}^2 - \ddot{\psi} + \nabla^2 \psi - 2(\mathcal{\dot H} + 2\mathcal{H}^2)(\phi + \psi) - \mathcal{H}\dot \phi - 5 \mathcal{H} \dot \psi]\delta_{ij} + \partial_i \partial_j(\psi - \phi)}
 $$
 :::
-### 4.1 Scalar sector
+
+### Ricci scalar
+**Ricci scalar** can be computed as
+$$
+\boxed{
+R = \dfrac{1}{a^2} \left[ -6(\mathcal{\dot H} + \mathcal{H}^2) + 2\nabla^2 \phi - 4\nabla^2 \psi + 12(\mathcal{\dot H} + \mathcal{H}^2)\phi + 6 \ddot{\psi} + 6 \mathcal{H}(\dot \phi + 3 \dot \psi) \right]}
+$$
+:::{prf:proof} Ricci scalar
+:class: dropdown
+
+$$
+R &= g^{\mu \nu} R_{\mu \nu} \\
+&= g^{00} R_{00} + 2 \underbrace{g^{0i} R_{0i}}_{\mathcal{O(2)}} + g^{ij} R_{ij}
+$$
+We have
+$$
+a^2R &= (1-2\phi)R_{00} - (1+2\psi)\delta^{ij}R_{ij} \\
+&= (1-2\phi)\bigl[-3\dot{\mathcal{H}} + \nabla^2\phi + 3\mathcal{H}(\dot\phi + \dot\psi) + 3\ddot\psi\bigr] \\
+& \quad - 3(1+2\psi) \left[\dot{\mathcal{H}} + 2\mathcal{H}^2 - \ddot\psi + \nabla^2\psi - \mathcal{H}\dot\phi - 5\mathcal{H}\dot\psi - 2(\dot{\mathcal{H}}+2\mathcal{H}^2)(\phi+\psi)\right] \\
+& \quad - (1 + 2\psi) \nabla^2 (\psi - \phi)
+$$
+Cancel the non-linear term
+$$
+a^2 R = -6(\mathcal{\dot H} + \mathcal{H}^2) + 2 \nabla^2 \phi - 4 \nabla^2 \psi + 12(\mathcal{\dot H} + \mathcal{H}^2)\phi + 6 \ddot{\psi} + 6 \mathcal{H} (\dot \phi + 3 \dot \psi) \\
+$$
+:::
+
+### Equation of motions (DraftXXX)
+The equations of motion for the matter perturbations come from conservation of the stress tensor
+$$
+\boxed{
+\nabla^\mu T_{\mu \nu} = 0}
+$$
+Developing the covariant derivative
+$$
+\nabla^\mu T_{\mu \nu} = \partial_\mu T^\mu_\nu + \Gamma^\mu_{\mu \alpha} T^{\alpha}_\nu - \Gamma^\alpha_{\mu \nu} T^\mu_\alpha = 0
+$$
+For $\nu = 0$, we have the equation of density perturbation evolution
+$$
+\boxed{
+\partial_\eta \delta \rho = -3 \mathcal{H} (\delta \rho + \delta P) + 3 \dot \psi (\bar \rho + \bar P) - \partial_i ((\bar \rho + \bar P)v^i)}
+$$
+For $\nu = i$, we have the equation of momentum perturbation evolution
+$$
+\boxed{
+\partial_\eta ((\bar{\rho} + \bar{P})v^i) = -4 \mathcal{H} (\bar{\rho} + \bar{P})v^i - (\bar \rho + \bar P ) \partial^i \phi - \partial^i \delta P - \partial_j \Pi^{ij}
+}
+$$
+:::{prf:proof} Equation of motion 
+:class: dropdown
+
+- Density perturbation evolution
+:::
+### Einstein tensors
+From the equation
+$$
+G_{\mu \nu} = R_{\mu \nu} - \dfrac{1}{2} R g_{\mu \nu}
+$$
+
+This is just a basic substitution problem:
+$$
+\delta G^0_0 = 2 \nabla^2 \psi - 6 \mathcal{H} (\dot \psi + \mathcal{H}\phi)
+$$
+### Einstein equation for perturbations (DraftXXX)
 :::{important} Einstein equation for perturbation
 $$
 \delta G^\mu_{\nu} = 8\pi G \delta T^\mu_{\nu}
 $$
+:::
+
+The 00-component of Einstein equation reads
+$$
+\boxed{
+  \underbrace{\nabla^2 \psi}_{\text{Newtonian}} - \underbrace{3 \mathcal{H} (\dot \psi + \mathcal{H} \phi)}_{\text{GR correction}} = 4 \pi G a^2 \delta \rho 
+}
+$$
+This is **generalized relativistic Poission** equation.
+
+:::{hint} Interpretation
+- For subhorizon modes ($k \gg \mathcal{H}$), we have
+$$
+| \nabla^2 \psi | \gg |3 \mathcal{H} (\dot \psi + \mathcal{H} \phi)| \quad \text{(in Fourier modes } |\nabla^2| \simeq k^2)
+$$
+So we reduce to *Poisson* equation
+$$
+\nabla^2 \psi \approx 4 \pi G a^2 \delta \rho 
+$$
+- The GR correction term is important in superhorizon scales.
+:::
+
+The $ij$-component of Einstein equation reads
+$$
+\boxed{
+  \nabla^2 (\psi - \phi) = -8\pi G a^2 (\bar \rho + \bar P) \sigma
+}
+$$
+where $\sigma$ is the anisotropic stress.
+
+:::{hint} Important remarks
+- Perfect fluids have zero anisotropic stress.
+- Dark matter and baryons can be described as perfect fluids.
+- Photons started as a perfect fluid, but developed an anisotropic stress component during the matter-dominated era when their energy density is subdominant.
+- The only relevant source for anisotropic stress in the early universe is neutrino (*But the level is small so we will ignore them for this course*).
+:::
+
+### Evolution equation for metric potential (XXXDraft)
+$$
+\boxed{
+\ddot \psi + 3\mathcal{H} \dot \psi + (2\mathcal{\dot H} + \mathcal{H}^2) \psi = 4\pi G a^2 \delta P
+}
+$$
+
+:::{hint} Remarks
+- If there is anisotropic stress, there is additional source term because the right hand side is sources by pressure perturbation.
+- On subhorizon scales ...
+- On superhorizon scales ...
 :::

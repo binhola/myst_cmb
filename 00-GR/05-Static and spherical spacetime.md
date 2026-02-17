@@ -13,7 +13,7 @@ Solutions of Einstein equations are very difficult to find because they are non-
 Therefore, we enforce symmetries (related to physical coordinates) to simplify the problem!  
 We look for integrability conditions.
 
-How to define symmetries in a theory where coordinates have no physical meaning?
+> How to define symmetries in a theory where coordinates have no physical meaning?
 
 In classical physics, a quantity $F$ which is invariant does not depend on some coordinate. Assume that $F(t, x, y, z)$:
 - $F$ is static: $\partial_t F = 0$,
@@ -70,7 +70,7 @@ $$
 \delta v = \delta\lambda\,\bigl[u^\nu \partial_\nu v^\mu - v^\nu \partial_\nu u^\mu\bigr] \partial_\mu(P).
 $$
 
-```{important} Definition of Lie derivative
+```{prf:definition} Definition of Lie derivative
 The Lie derivative of $v$ along $u$ is
 $$
 \mathcal{L}_u v = \lim_{\delta\lambda\to 0} \frac{\delta v}{\delta\lambda}
@@ -79,13 +79,12 @@ $$
 ```
 
 ### Covariant version
-```{important}
-The Lie derivative is a tensor:
+```{prf:proposition} Lie derivative is a tensor
 $$
 \mathcal{L}_u v^\mu = u^\nu \nabla_\nu v^\mu - v^\nu \nabla_\nu u^\mu.
 $$
 ```
-**Proof:**  
+:::{prf:proof} Lie derivative is a tensor
 We have $\nabla_\nu v^\mu = \partial_\nu v^\mu + \Gamma^\mu_{\nu\rho} v^\rho$.  
 The Lie derivative is given by $\mathcal{L}_u v^\mu = u^\nu \partial_\nu v^\mu - v^\nu \partial_\nu u^\mu$.  
 Hence
@@ -94,6 +93,7 @@ $$
 $$
 where $C^\mu = \underbrace{\Gamma^\mu_{\nu\rho}}_{\text{symmetric}}\;
 \underbrace{(v^\nu u^\rho - v^\rho u^\nu)}_{\text{antisymmetric}} = 0$.
+:::
 
 ```{important} Invariance of a vector
 $v$ is invariant along $u$ if and only if
@@ -123,11 +123,12 @@ $$
 
 We are interested in symmetries of spacetime – symmetries of the metric.
 
-### Definition
-$k = k^\mu \partial_\mu$ is a Killing vector field of the metric $g_{\alpha\beta}$ iff
+:::{prf:definition} Killing vector field of a metric
+$k = k^\mu \partial_\mu$ is a Killing vector field of the metric $g_{\alpha\beta}$ if and only if
 $$
 \mathcal{L}_k g_{\alpha\beta} = 0.
 $$
+:::
 Equivalently,
 
 $$
@@ -184,12 +185,15 @@ Evaluating:
 
 Killing vectors imply conserved quantities along geodesics (motion of a free particle).
 
+:::{prf:property} Conserved quantities of Killing vectors
 Let $k$ be a Killing vector: $\nabla_\alpha k_\beta + \nabla_\beta k_\alpha = 0$,  
 and $u^\mu$ be tangent to a geodesic: $u^\nu \nabla_\nu u^\mu = 0$.
 
 Then $C = k^\mu u_\mu$ is conserved along the geodesic.
+:::
 
-**Proof:** The variation of $C$ along $u^\mu$ is
+:::{prf:proof} Conserved quantities of Killing vectors
+The variation of $C$ along $u^\mu$ is
 $$
 \begin{aligned}
 u^\mu \nabla_\mu C &= u^\mu \nabla_\mu (k^\nu u_\nu) \\
@@ -198,13 +202,16 @@ u^\mu \nabla_\mu C &= u^\mu \nabla_\mu (k^\nu u_\nu) \\
 &= \frac12 (\underbrace{\nabla_\mu k_\nu + \nabla_\nu k_\mu}_{=0}) u^\mu u^\nu = 0.
 \end{aligned}
 $$
+:::
 
 ## Stationary spacetime
 
 Stationary spacetimes are expected to describe astrophysical objects at equilibrium (stars, black holes, ECOs).
 
-### Definition
-- A spacetime is **stationary** if it admits a timelike Killing vector $k$ (i.e. $k^2 = k_\mu k^\mu < 0$).  
+:::{prf:definition} Stationary spacetime
+A spacetime is **stationary** if it admits a timelike Killing vector $k$ (i.e. $k^2 = k_\mu k^\mu < 0$).
+:::
+
   We choose a coordinate system such that $k = \partial_t$:
   $$
   ds^2 = g_{00}(x^a)\, dt^2 + g_{0i}(x^a)\, dt\, dx^i + g_{ij}(x^a)\, dx^i dx^j,
@@ -212,10 +219,12 @@ Stationary spacetimes are expected to describe astrophysical objects at equilibr
   where $g_{\mu\nu}$ does not depend on $t$.
 
 ### Static spacetime
+:::{prf:definition} Static spacetime
 A spacetime is **static** if, in addition, it satisfies the discrete symmetry
 $$
 t \mapsto -t,\qquad g_{\mu\nu} \to g_{\mu\nu}.
 $$
+:::
 This implies $g_{0i}=0$, so
 $$
 ds^2 = g_{00}(x^a)\, dt^2 + g_{ij}(x^a)\, dx^i dx^j.

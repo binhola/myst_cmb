@@ -49,12 +49,14 @@ Gravitational waves play an increasingly important role in cosmology, with two m
     2. **Cosmological/primordial components**: originating from primordial sources in the early universe (e.g. inflation, phase transitions, cosmic strings).
 
 ```{important}
-Due to the weakness of gravitational interactions (set by $G_N$), gravitons decouple from the primordial plasma from the Planck time $t_{pl}$ onwards — much earlier than photons, which decouple at $z \lesssim 1100$ (recombination). 
+Due to the **weakness of gravitational interactions**, gravitons **decouple from the primordial plasma** from **$t_{\rm pl}$ onwards** — much earlier than photons (**$z \lesssim 1100$**).
 
-Therefore, the SGWB in principle contains information about gravitational wave sources and hence the physics of the primordial universe back to extremely early times, potentially revealing physics at energy scales inaccessible to other probes.
+Therefore, the **SGWB contains information about the primordial universe**, potentially revealing **physics at inaccessible energy scales**.
 ```
 
 ```{hint} Strong evidence for SGWB
+:class: dropdown
+
 In Summer 2023, pulsar timing array collaborations announced strong evidence for a stochastic gravitational wave background.
 
 - Observation time: $T \sim 1$ yr
@@ -84,6 +86,27 @@ $$
   $$
   where $n$ is the overtone number. For the fundamental mode, $\tau \approx 0.55 \, \mathrm{ms} \, (M/M_\odot)$.
 
-These estimates show that more massive black holes ring at lower frequencies and decay more slowly, which is why LIGO/Virgo are sensitive to stellar-mass black holes ($M \sim 10$–$100 M_\odot$, $f \sim 100$–$1000$ Hz), while future space-based detectors like LISA will observe supermassive black hole mergers ($M \sim 10^6$–$10^9 M_\odot$, $f \sim 10^{-4}$–$10^{-1}$ Hz).
 
-(to be continued ... now im dead x_x)
+A summary of the key gravitational-wave observables for different detectors:
+
+| Detector                   | $f_{\rm GW}$ (typical)      | $\tau$ (ringdown decay time) | Typical $M$                   |
+| -------------------------- | --------------------------- | ---------------------------- | ----------------------------- |
+| LVK (LIGO/Virgo/KAGRA)     | $\sim 10$–$10^3$ Hz         | $\sim 10^{-3}$–$10^{-2}$ s   | $\sim 10$–$100 M_\odot$       |
+| LISA                       | $\sim 10^{-4}$–$10^{-1}$ Hz | $\sim 10^3$–$10^4$ s         | $\sim 10^6$–$10^9 M_\odot$    |
+| PTA (Pulsar Timing Arrays) | $\sim 10^{-9}$–$10^{-7}$ Hz | $\sim 10^7$–$10^9$ s         | $\sim 10^9$–$10^{10} M_\odot$ |
+
+:::{hint} First detection of a black hole ringdown
+:class: dropdown
+
+- By LVK (from GW150914) 
+- Provided the first direct observation of the quasinormal modes predicted by general relativity. 
+- Measuring the amplitudes and frequencies of these modes opens the possibility to test the Hawking area theorem: that the total horizon area after merger $A$ should satisfy $A \ge A_1 + A_2$. 
+- While current LVK data are consistent with this bound, higher signal-to-noise detections of multiple ringdown modes in the future could provide a quantitative test of this fundamental prediction.
+:::
+
+## Detector types
+- LVK and LISA are interferometers based on michael-son morley experiments. 
+- Some explaination for michelson morley here. ....
+$$
+ds^2 = g_{\mu \nu}
+$$

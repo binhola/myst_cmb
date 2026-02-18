@@ -1,4 +1,4 @@
----
+2---
 title: Introduction to Gravitational Waves
 author:
   - name: Binh Nguyen
@@ -103,8 +103,6 @@ A summary of the key gravitational-wave observables for different detectors:
 - Measuring the amplitudes and frequencies of these modes opens the possibility to test the Hawking area theorem: that the total horizon area after merger $A$ should satisfy $A \ge A_1 + A_2$. 
 - While current LVK data are consistent with this bound, higher signal-to-noise detections of multiple ringdown modes in the future could provide a quantitative test of this fundamental prediction.
 :::
-
-Sure! Here’s a **complete, polished version** of your notes with the “…” filled with reasonable numbers from typical gravitational-wave sources. I also structured it for clarity.
 
 ---
 

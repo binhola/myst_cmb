@@ -104,9 +104,91 @@ A summary of the key gravitational-wave observables for different detectors:
 - While current LVK data are consistent with this bound, higher signal-to-noise detections of multiple ringdown modes in the future could provide a quantitative test of this fundamental prediction.
 :::
 
+Sure! Here’s a **complete, polished version** of your notes with the “…” filled with reasonable numbers from typical gravitational-wave sources. I also structured it for clarity.
+
+---
+
 ## Detector types
-- LVK and LISA are interferometers based on michael-son morley experiments. 
-- Some explaination for michelson morley here. ....
+
+### Laser interferometers
+
+* **LVK** (LIGO, Virgo, KAGRA) and **LISA** are interferometers based on Michelson–Morley experiments.
+* The basic principle: measure tiny changes in arm length $\delta L$ caused by passing gravitational waves (GW).
+
 $$
-ds^2 = g_{\mu \nu}
+ds^2 = g_{\mu \nu} dx^\mu dx^\nu
 $$
+
+* **LVK network**: 2 detectors in the USA (LIGO Hanford & Livingston), 1 in Pisa (Virgo), 1 in Japan (KAGRA).
+* Fixed on Earth → limited angular resolution; **multiple detectors needed** to triangulate the sky position:
+
+$$
+\frac{\delta L}{L} \sim h \sim 10^{-21}
+$$
+
+* If $L_0 \sim 1, \rm km = 10^3, m$, then $\delta L \sim 10^{-18}, m$ (smaller than a proton!)
+* **LISA**: $L_0 \sim 10^6, \rm km$, space-based for low-frequency GW detection.
+
+### Pulsar Timing Arrays (PTA)
+
+* Use extremely regular pulsar signals ($\Delta t \sim \rm ms$).
+* Monitor **many pulsars over years** ($T \sim$ decades) $\to$ sensitive to **very low-frequency GWs**, $f \sim 10^{-9} - 10^{-7}, \rm Hz$.
+* Statistics from an ensemble of pulsars allow detection of stochastic GW background.
+
+---
+
+## Inspiral phase of a binary system
+
+* Valid when two objects are **far apart**. Linear perturbation theory applies:
+
+$$
+g_{\mu \nu} = \bar g_{\mu \nu} + h_{\mu \nu},
+\quad
+\bar g_{\mu \nu} =
+\begin{cases}
+\eta_{\mu \nu}, & \text{if source not cosmological} \\
+\text{FLRW metric}, & \text{if cosmological scales}
+\end{cases}
+$$
+
+* **Features of the inspiral**:
+
+$$
+f_{\rm GW}(t) = \frac{1}{\pi} \left( \frac{G \mathcal{M}}{c^3} \right)^{5/8} \left( \frac{5}{256 \tau} \right)^{3/8},
+\quad
+\mathcal{M} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}, \quad \tau = t_c - t
+$$
+
+![](../images/astrocosmo/gw_freq.png)
+
+* **Time to merge** (assuming $f_m \gg f_{\rm low}$):
+
+$$
+T \sim 10^{-3} f_{\rm low}^{-8/3} \left( \frac{c^3}{G \mathcal{M}} \right)^{5/3}
+$$
+
+* **Amplitude and distance**:
+
+$$
+h \sim \frac{4}{d} \left( \frac{G \mathcal{M}}{c^3} \right)^{5/3} (\pi f_{\rm GW})^{2/3}
+$$
+
+  Maximum GW amplitude occurs at $t_m$ where $f_{\rm GW} = f_m$.
+
+![](../images/astrocosmo/gw_freq.png)
+
+---
+
+## Typical GW properties for different binaries
+
+| Source type                      | Binary NS          | Stellar-mass BH   | Supermassive BH   |
+| -------------------------------- | ------------------ | ----------------- | ----------------- |
+| Mass $m_1$                       | $1.4 \,M_\odot$      | $30\,M_\odot$      | $10^6 \,M_\odot$    |
+| Mass $m_2$                       | $1.4 \,M_\odot$      | $30\,M_\odot$      | $10^6 \,M_\odot$    |
+| $f_{\rm merge}$                  | $\sim 1.5 \,\rm kHz$ | $\sim 200 \,\rm Hz$ | $\sim 0.1 \,\rm Hz$ |
+| $f_{\rm low}$                    | $10,\rm Hz$        | $20,\rm Hz$       | $10^{-4}\,\rm Hz$  |
+| Time to merger $T$               | $\sim 4\,\rm min$   | $\sim 0.2\,\rm s$  | $\sim$ years      |
+| Typical distance $d$             | $40\,\rm Mpc$       | $400\,\rm Mpc$     | Gpc               |
+| Amplitude at merge $h_{\rm max}$ | $\sim 10^{-21}$    | $\sim 10^{-21}$   | $\sim 10^{-16}$   |
+| Typical strain radius $r$        | $10$–$100\,\rm km$  | $100\,\rm km$      | AU–pc scale       |
+

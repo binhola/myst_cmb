@@ -57,7 +57,7 @@ Therefore, the **SGWB contains information about the primordial universe**, pote
 ```{hint} Strong evidence for SGWB
 :class: dropdown
 
-In Summer 2023, pulsar timing array collaborations announced strong evidence for a stochastic gravitational wave background.
+In Summer 2025, pulsar timing array collaborations announced strong evidence for a stochastic gravitational wave background.
 
 - Observation time: $T \sim 1$ yr
 - Characteristic frequency: $f_{\mathrm{GW}} \sim 10^{-9}$ Hz

@@ -157,8 +157,6 @@ f_{\rm GW}(t) = \frac{1}{\pi} \left( \frac{G \mathcal{M}}{c^3} \right)^{5/8} \le
 \mathcal{M} = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}, \quad \tau = t_c - t
 $$
 
-![](../images/astrocosmo/gw_freq.png)
-
 * **Time to merge** (assuming $f_m \gg f_{\rm low}$):
 
 $$
@@ -173,7 +171,14 @@ $$
 
   Maximum GW amplitude occurs at $t_m$ where $f_{\rm GW} = f_m$.
 
-![](../images/astrocosmo/gw_freq.png)
+:::{figure} #GW_freq
+:width: 100%
+:label: fig-I-evo
+
+Gravitational Wave
+:::
+
+<!-- ![](../images/astrocosmo/gw_freq.png) -->
 
 ---
 

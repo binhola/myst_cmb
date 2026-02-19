@@ -1,4 +1,4 @@
-2---
+---
 title: Introduction to Gravitational Waves
 author:
   - name: Binh Nguyen

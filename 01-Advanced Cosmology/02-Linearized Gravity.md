@@ -488,32 +488,6 @@ a^2 R = -6(\mathcal{\dot H} + \mathcal{H}^2) + 2 \nabla^2 \phi - 4 \nabla^2 \psi
 $$
 :::
 
-### Equation of motions (DraftXXX)
-The equations of motion for the matter perturbations come from conservation of the stress tensor
-$$
-\boxed{
-\nabla^\mu T_{\mu \nu} = 0}
-$$
-Developing the covariant derivative
-$$
-\nabla^\mu T_{\mu \nu} = \partial_\mu T^\mu_\nu + \Gamma^\mu_{\mu \alpha} T^{\alpha}_\nu - \Gamma^\alpha_{\mu \nu} T^\mu_\alpha = 0
-$$
-For $\nu = 0$, we have the equation of density perturbation evolution
-$$
-\boxed{
-\partial_\eta \delta \rho = -3 \mathcal{H} (\delta \rho + \delta P) + 3 \dot \psi (\bar \rho + \bar P) - \partial_i ((\bar \rho + \bar P)v^i)}
-$$
-For $\nu = i$, we have the equation of momentum perturbation evolution
-$$
-\boxed{
-\partial_\eta ((\bar{\rho} + \bar{P})v^i) = -4 \mathcal{H} (\bar{\rho} + \bar{P})v^i - (\bar \rho + \bar P ) \partial^i \phi - \partial^i \delta P - \partial_j \Pi^{ij}
-}
-$$
-:::{prf:proof} Equation of motion 
-:class: dropdown
-
-- Density perturbation evolution
-:::
 ### Einstein tensors
 From the equation
 $$
@@ -522,21 +496,84 @@ $$
 
 This is just a basic substitution problem:
 $$
-\delta G^0_0 = 2 \nabla^2 \psi - 6 \mathcal{H} (\dot \psi + \mathcal{H}\phi)
+\delta G^0_0 &= 2 a^{-2} \, [ \nabla^2 \psi - 3 \mathcal{H} (\dot \psi + \mathcal{H}\phi) ] \\
+\delta G^i_0 &= -2 a^{-2} \, \partial^i (\dot \psi + \mathcal{H} \phi) \\
 $$
-### Einstein equation for perturbations (DraftXXX)
+
+For $\delta G^i_j$, we use the projection tensor $P^j_i \equiv \hat{k^j} \hat{k_i} - \dfrac{1}{3} \delta^j_i$ to extract the tracefree part
+$$
+P^j_i \delta G^i_j = \dfrac{2}{3} a^{-2} k^2 (\psi - \phi)
+$$
+
+:::{prf:proof} Einstein tensors
+:class: dropdown
+
+$$
+G^0_0 &= g^{00} \left(R_{00} - \dfrac{1}{2} g_{00} \delta R\right) \\
+&= \dfrac{1}{a^2} (1-2\phi) R_{00} - \dfrac{1}{2} R \\
+\Rightarrow \delta G^0_0 &= \boxed{2 a^{-2} \, [ \nabla^2 \psi - 3 \mathcal{H} (\dot \psi + \mathcal{H}\phi) ]} \\
+G^i_0 &= g^{ij} [R_{j0} - \dfrac{1}{2} g_{j0} R] \\
+&= g^{ij} R_{j0} \\
+\Rightarrow \delta G^i_0 &= \boxed{-2 a^{-2} \partial^i (\dot \psi + \mathcal{H} \phi)}
+$$
+:::
+### Matter perturbation
+Consider perturbations of energy momentum tensors
+$$
+T^0_0 &= \bar \rho + \delta \rho \\
+T^i_0 &= (\bar \rho + \bar P) v^i \\ 
+T^i_j &= -(\bar P + \delta P) \delta^i_j - \Pi^i_j
+$$
+where 
+- $v^i$ is the **bulk velocity**.
+- $\Pi^i_j$ is the **anisotropic stress** (a transverse, traceless tensor)
+
+Define **momentum density** $q^i$
+$$
+q^i = (\bar \rho + \bar P) v^i
+$$
+
+We can apply SVT decomposition
+$$
+v_i &= \partial_i v + \hat v_i, \qquad \partial_i \hat v^i = 0 \\
+q_i &= \partial_i q + \hat q_i, \qquad \partial_i \hat q^i = 0 \\
+\Pi_{ij} &= \partial_{\langle i} \partial_{j \rangle} + \partial_{(i} \hat \Pi_{j)} + \hat \Pi_{ij}
+$$
+For scalar perturbations, the Fourier components of bulk velocity and anisotropic stress can be rewritten as
+$$
+v^i (\eta, \mathbf{k}) &= i \hat{k^i} v(\eta, \mathbf{k}) \\
+\Pi^{ij}(\eta, \mathbf{k}) &= - (\bar \rho + \bar P) \hat{k}^{\langle i} \hat{k}^{j \rangle} \sigma(\eta, \mathbf{k})
+$$
+where
+- $\mathbf{\hat k} = \dfrac{\mathbf{k}}{|\mathbf{k}|}$
+- $\hat{k}^{\langle i} \hat{k}^{j \rangle} \equiv \hat k^{\langle i} \hat k^{j \rangle} - \dfrac{1}{3} \delta^{ij}$ (symmetric, trace-free part)
+
+:::{note}
+Scalar perturbations of matter are described by four perturbation variables
+$$
+(\rho, \delta P, \theta, \sigma)
+$$
+where
+- $\delta \equiv \dfrac{\delta \rho}{\rho}$ is the dimensionless **density contrast**.
+- $\theta \equiv \partial_i v^i$ is the **velocity divergence**
+:::
+
+### Einstein equation for scalar perturbations
 :::{important} Einstein equation for perturbation
 $$
 \delta G^\mu_{\nu} = 8\pi G \delta T^\mu_{\nu}
 $$
 :::
 
+#### 00-component
 The 00-component of Einstein equation reads
-$$
+```{math}
+:label: 00-com
+
 \boxed{
   \underbrace{\nabla^2 \psi}_{\text{Newtonian}} - \underbrace{3 \mathcal{H} (\dot \psi + \mathcal{H} \phi)}_{\text{GR correction}} = 4 \pi G a^2 \delta \rho 
 }
-$$
+```
 This is **generalized relativistic Poission** equation.
 
 :::{hint} Interpretation
@@ -551,12 +588,31 @@ $$
 - The GR correction term is important in superhorizon scales.
 :::
 
-The $ij$-component of Einstein equation reads
+#### 0i-component
+The scalar component
 $$
+\delta T^i_0 = \partial^i q = (\bar \rho + \bar P) \partial^i v
+$$
+Einstein equation reads
+$$
+\boxed{
+\dot \psi + \mathcal{H} \phi = - 4 \pi G a^2 q
+}
+$$
+#### ij-component
+The tracefree part of the stress tensor for scalar perturbation 
+$$
+P^j_i T^i_j = -P^j_i \Pi^i_j &= (\bar \rho + \bar P) (\hat k^j \hat k_i - \dfrac{1}{3} \delta^j_i) (\hat k^i \hat k_j - \dfrac{1}{3} \delta^i_j) \sigma \\
+&= \dfrac{2}{3} (\bar \rho + \bar P) \sigma
+$$
+The $ij$-component of Einstein equation reads
+```{math}
+:label: ij-com-EE
+
 \boxed{
   \nabla^2 (\psi - \phi) = -8\pi G a^2 (\bar \rho + \bar P) \sigma
 }
-$$
+```
 where $\sigma$ is the anisotropic stress.
 
 :::{hint} Important remarks
@@ -566,15 +622,53 @@ where $\sigma$ is the anisotropic stress.
 - The only relevant source for anisotropic stress in the early universe is neutrino (*But the level is small so we will ignore them for this course*).
 :::
 
-### Evolution equation for metric potential (XXXDraft)
-$$
+### Evolution equation for metric potential
+The equation governs the evolution of the metric potential $\psi$ in the absence of anisotropic stress:
+```{math}
+:label: metric-potential
 \boxed{
-\ddot \psi + 3\mathcal{H} \dot \psi + (2\mathcal{\dot H} + \mathcal{H}^2) \psi = 4\pi G a^2 \delta P
+\ddot \phi + 3\mathcal{H} \dot \phi + (2\mathcal{\dot H} + \mathcal{H}^2) \phi = 4\pi G a^2 \delta P
 }
-$$
+```
 
-:::{hint} Remarks
-- If there is anisotropic stress, there is additional source term because the right hand side is sources by pressure perturbation.
-- On subhorizon scales ...
-- On superhorizon scales ...
+:::{prf:proof} Evolution equation for metric potential
+:class: dropdown
+
+Given the traceless $\Pi^{ij}$, we have 
+$$
+\delta T^i_i = - \delta P \delta^i_i - \Pi^i_i = - 3 \delta P
+$$
+We have
+$$
+\delta G^\mu_\mu &= - \delta R \\
+\Rightarrow G^i_i &= - \delta R - \delta G^0_0
+$$
+with
+- $\delta R = 2 a^{-2} \left[ \nabla^2 \phi - 2 \nabla^2 \psi + 6(\mathcal{\dot H} + \mathcal{H^2}) \phi + 3 \ddot{\psi} + 3 \mathcal{H}(\dot{\phi} + 3 \dot{\psi}) \right]$
+- $\delta G^0_0 = 2 a^{-2} \left[ \nabla^2 \psi - 3 \mathcal{H}(\dot{\psi} + \mathcal{H} \phi) \right]$
+- In the absence of anisotropic stress $\sigma = 0$, we have $\psi = \phi$ (Using equation {eq}`ij-com-EE`)
+
+Combining everything, we have
+$$
+\delta G^i_i = -6 a^{-2} \left[ \ddot{\psi} + 3 \mathcal{H} \dot{\psi} + (2\mathcal{\dot{H}} + \mathcal{H^2}) \psi \right] 
+$$
+We have
+$$
+\delta G^i_i = 8 \pi G \delta T^i_i
+$$
+which gives
+$$
+\boxed{\ddot{\phi} + 3 \mathcal{H} \dot{\phi} + (2\mathcal{\dot{H}} + \mathcal{H^2}) \phi = 4 \pi G \delta P}
+$$
 :::
+
+:::{hint} Remarks 
+- The right-hand side is sourced by the total pressure perturbation $\delta P$.  
+- If anisotropic stress is present, an additional source term appears, and $\phi \neq \psi$. The general equation would then involve both potentials.
+:::
+
+<!-- :::{important} Evolution in radiation-dominated eras
+In radiation-dominated era
+- Superhorizon scales ($k \ll \mathcal{H}$)
+- Subhorizon scales ($k \gg \mathcal{H}$)
+::: -->

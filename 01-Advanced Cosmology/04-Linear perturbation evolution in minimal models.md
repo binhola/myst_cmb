@@ -1,4 +1,4 @@
-#
+# Linear Perturbation Evolution in minimal model
 
 ## Equation of motions (DraftXXX)
 The equations of motion for the matter perturbations come from conservation of the stress tensor
@@ -94,8 +94,40 @@ $$
 }
 $$
 on superhorizon scales.
+- The velocity divergence $\theta$ is related to $\phi$ via the **0i** Einstein equation
+$$ \dot \phi + \mathcal{H} \phi \propto (\bar \rho + \bar P) \theta $$
+so $\theta$ is *negligible* (decaying mode) on superhorizon scales (with $\phi = \text{const}$).
+- The pressure perturbation $\delta P$ is not independent but given by
+$$
+\delta P = c^2_s \delta \rho = c^2 s(-2 \bar \rho \phi)
+$$
+
+Thus, **all matter perturbation variables** ($\delta$, $\delta P$, $\theta$, $\sigma$ if present) can be expressed in terms of **single constant** $\phi$ on superhorizon scales. 
 :::
 
-:::{prf:proof}
-From equation {eq}`00-com`, on the superhorizon scales ($k \ll \mathcal{H}$)
+:::{prf:proof} Initial conditions
+:class: dropdown
+
+From equation {eq}`00-com`, on the superhorizon scales ($k \ll \mathcal{H}$), the term $\nabla^2 \phi$ is negligible, leaving
+$$
+-3 \mathcal{H}(\dot \phi + \mathcal{H} \phi) = 4 \pi G a^2 \delta \rho
+$$
+
+Since $\phi = \text{const}$, $\dot \phi = 0$
+$$
+-3 \mathcal{H}^2 \phi = 4 \pi G a^2 \delta \rho
+$$
+Using Friedmann equation
+$$
+3 \mathcal{H}^2 = 8 \pi G a^2 \bar \rho
+$$
+we have
+
+$$
+- 8 \pi G a^2 \bar \rho \phi &= 4 \pi G a^2 \delta \rho \\
+$$
+Therefore,
+$$
+\delta &= -2 \phi = \text{const}
+$$
 :::

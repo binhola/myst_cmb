@@ -274,7 +274,7 @@ h^{TT}_{ij}(t, \mathbf{x}) = \frac{2G}{c^4 d} \Lambda_{ij}^{\,\,\, kl}(\mathbf{n
 where $I_{kl}$ is the quadrupole moment tensor of the source:
 
 ```{math}
-I_{kl}(t) = \int d^3 y \, \rho(t, \mathbf{y}) T_{00}\left( t - \dfrac{d}{c}, \mathbf{y} \right) y_k y_l,
+I_{kl}(t) = \int d^3 y \, T_{00}\left( t - \dfrac{d}{c}, \mathbf{y} \right) y_k y_l,
 ```
 
 This formula describes the generation of gravitational waves by time-varying mass quadrupoles.
@@ -386,9 +386,9 @@ $$
 Thus  
 
 $$
-I_{ij}(t) = \mu\, r^2 \begin{pmatrix}
-\cos^2\Omega t & \cos\Omega t\sin\Omega t & 0\\
-\cos\Omega t\sin\Omega t & \sin^2\Omega t & 0\\
+I_{ij}(t) = \dfrac{1}{2} \mu\, r^2 \begin{pmatrix}
+\cos (2\Omega t) & \sin(2\Omega t) & 0\\
+\sin (2\Omega t) & -\cos(2 \Omega t) & 0\\
 0 & 0 & 0
 \end{pmatrix}.
 $$

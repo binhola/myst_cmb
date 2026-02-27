@@ -127,17 +127,73 @@ $$
 \bar h_{\mu \nu} = h_{\mu \nu},
 $$
 we can summarize the restrictions imposed on the perturbation of the metric in the form
-$$
+```{math}
+:label: gauge-condition
 h^{TT} = 0, \qquad \partial^\mu h^{TT}_{\mu \nu} = 0, \qquad h^{TT}_{0i} = 0
-$$
+```
 which define **tranverse, traceless gauge**. 
 
 To solve the equation of motion
-$$
+```{math}
+:label: gw-eom
 \square h^{TT}_{\mu \nu} = 0
-$$
+```
 
 We move to Fourier space and write the solutions as the superposition of plane waves of the form
 $$
 h^{TT}_{\mu \nu} = H_{\mu \nu} e^{i k_\sigma x^\sigma}
 $$
+
+Equation of motion {eq}`gw-eom` implied the **light-like geodesics** of gravitational waves:
+$$
+\eta_{\mu \nu} k^\mu k^\nu = 0
+$$
+
+Choose $z$ as the direction of propagation of GWs
+$$
+k^\mu = (\omega, \, 0, \, 0, \, \omega)
+$$
+
+From the gauge conditions {eq}`gauge-condition`, we have
+$$
+H = 0, \qquad k^\mu H_{\mu \nu} = \omega(H_{0\nu} + H_{3\nu}), \qquad H_{0i} = 0
+$$
+
+The matrix $H_{\mu \nu}$ reduces to 
+$$
+H_{\mu \nu} = \begin{pmatrix}
+    0 & 0 & 0 & 0 \\
+    0 & H_+ & H_\times & 0 \\
+    0 & H_\times & - H_+ & 0 \\
+    0 & 0 & 0 & 0 \\
+\end{pmatrix}
+$$
+characterized by two degrees of freedom, analogous to two polarizations of EM waves.
+:::{prf:proof} matrix $H_{\mu \nu}$
+:class: dropdown
+
+We have
+$$
+H_{0\nu} &= -H_{3\nu}
+$$
+and $H_{0i} = 0$, so
+$$
+\begin{cases}
+    H_{00} &= -H_{30} = 0 \\
+    H_{0i} &= -H_{3i} = 0 
+\end{cases}
+$$
+We have
+$$
+H &= 0 \\
+H_{00} &= H_{11} + H_{22} + H_{33} \\
+H_{11} &= - H_{22} = H_{+}
+$$
+
+What remains are
+$$
+H_{12} = H_{21} = H_\times
+$$
+:::
+
+## Detection of gravitational waves

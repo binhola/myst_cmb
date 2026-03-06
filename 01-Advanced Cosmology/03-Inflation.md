@@ -1,6 +1,9 @@
 # Inflation
 
 ## Motivation
+$\Lambda$CDM model is a perfectly satisfactory model of the universe for $t \gtrsim 10^{-3}$ s (scales at nuclear reactions), consistent with Big Bang nucleosynthesis, Hubble law, growth of LSS. But the initial condition of the model (hot and dense in thermal equilibrium) is not explained.
+
+Therefore, model not complete \& $\Lambda$CDM model has number of structure problem/unanswered questions (e.g. flatness problem, horizon problem, "density fluctuation" problem) (IC problem) -> these are what inflation address, what is CDM or what is $\Lambda$ -> these are what inflation not address
 
 ### Causality problem
 - decelerated $a \propto t^n$ and $n < 1$ so that $\ddot{a} < 0$

@@ -173,12 +173,11 @@ $$
 
 :::{figure} #GW_freq
 :width: 100%
-:label: fig-I-evo
+:label: GW-evo
 
 Gravitational Wave
 :::
 
-<!-- ![](../images/astrocosmo/gw_freq.png) -->
 
 ---
 

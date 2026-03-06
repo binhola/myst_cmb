@@ -131,3 +131,9 @@ $$
 \delta &= -2 \phi = \text{const}
 $$
 :::
+
+### Comoving curvature perturbation
+The gravitational potential $\phi$ only constant on superhorizon scales if background equation of state stays constant. It is more useful to define an perturbation variable that stays generally constant on large scales.
+$$
+\mathcal{R} = - \phi + \dfrac{\mathcal{H}}{\bar \rho + \bar P} \delta q
+$$

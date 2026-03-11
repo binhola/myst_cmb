@@ -1,48 +1,37 @@
 # Inflation
 
-## Motivation
-$\Lambda$CDM model is a perfectly satisfactory model of the universe for $t \gtrsim 10^{-3}$ s (scales at nuclear reactions), consistent with Big Bang nucleosynthesis, Hubble law, growth of LSS. But the initial condition of the model (hot and dense in thermal equilibrium) is not explained.
+## Inflation and Slow-roll Model
+:::{seealso} Inflation lecture
+See the [Inflation](../02-Astro%20Cosmo%20Additional%20topics/05-Inflation.md) lecture by **Daniel Steer**
+:::
 
-Therefore, model not complete \& $\Lambda$CDM model has number of structure problem/unanswered questions (e.g. flatness problem, horizon problem, "density fluctuation" problem) (IC problem) -> these are what inflation address, what is CDM or what is $\Lambda$ -> these are what inflation not address
+## Quantum initial condition
+Inflation provides a natural mechanism for producing initial conditions: the evolution of the inflaton field $\phi(t)$ governs the energy density of the early universe $\rho(t)$. The field $\phi$ plays the role of local "clock" reading off the amount of inflationary expansion to occur. By uncertainty principle, precise timing is not possible in quantum mechanics, so there is some variance in form of spatially varying fluctuations $\delta \phi(t, \mathbf{x})$. Therefore, there will be local differences in time when inflation ends, $\delta t(\mathbf{x})$, leading to different local densities after inflation, $\delta \rho(t,\mathbf{x})$, and to the curvature perturbation in comoving gauge $\mathcal{R}(\mathbf{x})$. 
 
-### Causality problem
-- decelerated $a \propto t^n$ and $n < 1$ so that $\ddot{a} < 0$
-#### Causal horizon
+### Inflaton fluctuations: Classical
+Inflaton action
 $$
-d_h \equiv a(t_2) \int_{t_1}^{t_2} \dfrac{dt}{a(t)}
+S = \int d\eta d^3 x \sqrt{-g} \left[ \dfrac{1}{2} g^{\mu \nu} \partial_\mu \phi \partial_\nu \phi - V(\phi) \right]
 $$
-With ${t_2 \ll t_1}$ then
-$$
-d_h = \dfrac{t_2}{1 - n} \Rightarrow \ddot{d_h} = 0
-$$
-where the Hubble radius
-$$
-R_H = \dfrac{1}{H} = \dfrac{t_c}{n}
-$$
+where $g \equiv \det g_{\mu \nu}$. 
 
-All the modes outside Hubble horizon (no causal) but eventually enter the horizon and causually connected to each other.
+For linearised dynamics, we need the action at quadratic order in fluctuations. For simplicity, we work in *spatially flat gauge*, in which we use the freedom of choice for coordinates to set the spatial metric to unperturbed $g_{ij} = - a^2 \delta_{ij}$. In this gauge, the information of perturbation is carried by the inflaton perturbation $\delta \phi$ and the metric $\delta g_{0 \mu}$ (related by Einstein equations). 
 
-If we consider a small enough $t_i$, all the observable modes are acausal.
-
+Evaluating the *unperturbed FRW metric*, we find
 $$
-\lambda(t_i) \ll R_H(t_i)
+S = \int d \eta d^3 x \left[ \dfrac{1}{2} a^2 (\dot{\phi}^2 - (\nabla \phi)^2) - a^4 V(\phi) \right]
 $$
 
-Observation of CMB showed that modes $\lambda(t_{dec}) \ll R_H(t_{dec})$ had been initially in causal contact.
-
-Accelerated expansion: 
+We write the perturbed inflaton field as
 $$
-\ddot{a} &> 0 (\text{e.g. de Sitter}) \\
-\ddot{\lambda} &> 0
+\phi(\eta, \mathbf{x}) = \bar \phi(\eta) + \dfrac{f(\eta, \mathbf{x})}{a(\eta)}
 $$
 
-Causal horizon: 
+To get the linearised motion for $f(\eta, \mathbf{x})$, we need to expand the action to second order in the fluctuations: 
 $$
-R_H = \dfrac{1}{H} = \text{const} \\
-d_H = \dfrac{1}{H} (e^{H(t_2 - t_1)} - 1)
+S_{(2)} = \int d\eta d^3 x \dfrac{1}{2} \left[ \dot{f}^2 - (\nabla f)^2 + \dfrac{\ddot{a}}{a} f^2 \right]
 $$
 
-if $t_2 \ll t_1$ we have
-$$
-\dfrac{e^{H(t_2 - t_1)}}{H} = R_H \dfrac{a(t_2)}{a(t_1)}
-$$
+:::{prf:proof}
+
+:::

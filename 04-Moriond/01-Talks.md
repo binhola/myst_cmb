@@ -113,3 +113,36 @@ Results
 Upgrades
 - 13 optic tubes: 30000 $\to$ 60000 (NSF grant) (Jan 2026)
 - 3 more SATs: 1 LF, 2 MF: 24000 $\to$ 48000
+
+## Commander4, End-to-end Joint Analysis - Ana Isabel
+- Cosmoglobe: multi-experiments (break degeneracy thanks to same physics, different instrument setting) + loop analysis (use the constraints to prior for analysis)
+- BeyondPlanck: Gibbs sampling $\to$ cosmo + nuisance parameters (explore the whole parameter space)
+  - WMAP + Planck: DR1
+  - DR2: IR 
+- Commander3 (Fortran) single node $\to$ Commander4 (Python) multiple nodes
+DRX: 
+- AKARI (very high frequency, high resolution) $\to$ improve the calibration
+- COBE-FIRAX: recalibration the CMB temperature
+- OpenHFI
+
+There are infinite possibilities.
+
+### Questions:
+- Can it combine with LSS ?
+- For two different experiments: the nuisance parameters will be different and the cosmological parameters will be shared ?
+- Parametric models ???
+
+## Cosmic birefringence, SPT-3G
+Cosmic birefringence = EB correlation in CMB polarizations
+- Chern-Simons coupling (axion)
+- Primordial magnetic fields
+
+
+Many constraints in the past few years
+- Two ways to measure anisotropic cosmic birefringence
+  - B-mode modeling
+  - Quadratic estimator
+
+Results:
+- Consistent with no cosmic birefringence for now
+- Put a new upper limit: 0.017

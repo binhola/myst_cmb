@@ -1,4 +1,4 @@
-# Moriond Talks
+# Moriond Talks - Day 1
 
 ## CMB Blind component separation - Alessandro
 - ILC component separation $\to$ remove foreground

@@ -14,7 +14,9 @@
 - Check the biases on different $r$ values and foreground models
 - Include the template of foregrounds into likelihood.
 
-- Broom packages 
+:::{hint} Broom packages
+[Blind Reconstruction Of Observables in the Microwaves](https://github.com/alecarones/broom)
+:::
 
 - Blind detection of systematic residuals after component separation.
 

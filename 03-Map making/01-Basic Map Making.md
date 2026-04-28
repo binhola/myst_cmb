@@ -265,8 +265,208 @@ again recovering the true values exactly.
 Binned map‑making reproduces the input Stokes parameters perfectly in this noise‑free test. The algorithm only requires per‑pixel sums, avoiding the construction of the full pointing matrix. For white noise, this is the optimal minimum‑variance map.
 :::
 
-### POMME map-making
-*Template-based* map-making model, where the template $\mathbf{T}$ is included for any noise that is not white noise (atmospheric, scan-synchronous, HWP)
+### Pomme map-making
+
+#### Template map-making
+*Template-based* map-making model, where the template $\mathbf{T}$ accounts for any non-white noise contributions (e.g. atmospheric noise, scan-synchronous signals, HWP systematics and non-idealities):
 $$
 \mathbf{d} = \mathbf{P} \mathbf{s} + \mathbf{T} \mathbf{a} + \mathbf{n}
 $$
+
+The corresponding maximum-likelihood solution is
+$$
+\mathbf{\hat s} = (\mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{P})^{-1} \mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{d}
+$$
+
+where the operator
+$$
+\mathbf{D}_{\rm T} = \mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}
+$$
+projects out the template subspace.
+
+:::{prf:proof} template maximum likelihood solution
+:class: dropdown
+Following the same approach as before, define the quadratic form
+$$
+\chi^2 = (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x})^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x})
+$$
+We minimize $\chi^2$ with respect to both $\mathbf{s}$ and $\mathbf{x}$.
+
+Taking the derivative with respect to $\mathbf{s}$:
+$$
+\dfrac{d \chi^2}{d \mathbf{s}} = - 2 \mathbf{P}^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x})
+$$
+
+Setting this to zero gives
+$$
+\mathbf{P}^T \mathbf{N}^{-1} \mathbf{P} \, \mathbf{\hat s} = \mathbf{P}^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{T} \mathbf{x})
+$$
+
+Next, take the derivative with respect to $\mathbf{x}$:
+$$
+\dfrac{d \chi^2}{d \mathbf{x}} = - 2 \mathbf{T}^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x})
+$$
+
+Setting this to zero yields
+$$
+\mathbf{\hat x} =  (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1}  \mathbf{T}^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s})
+$$
+
+Substituting $\mathbf{\hat x}$ into the equation for $\mathbf{\hat s}$:
+$$
+\mathbf{P}^T \mathbf{N}^{-1} \mathbf{P} \, \mathbf{\hat s} &= \mathbf{P}^T \mathbf{N}^{-1} \left[\mathbf{d} -  \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1}  \mathbf{T}^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s}) \right] \\
+\mathbf{P}^T \mathbf{N}^{-1} \underbrace{[\mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}]}_{\mathbf{D}_{\rm T}} \mathbf{P} \, \mathbf{\hat s} &= \mathbf{P}^T \mathbf{N}^{-1} \underbrace{[\mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}]}_{\mathbf{D}_{\rm T}} \mathbf{d} \\
+\mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{P} \, \mathbf{\hat s} &= \mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{d}
+$$
+
+Thus, the solution is
+$$
+\boxed{\mathbf{\hat s} = (\mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{P})^{-1} \mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\rm T} \mathbf{d}}
+$$
+with the **deprojection operator**
+$$
+\mathbf{D}_{\rm T} = \mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}.
+$$
+
+If we include a Gaussian prior on $\mathbf{x}$ with covariance $\mathbf{X} = \langle \mathbf{x} \mathbf{x}^T\rangle$, the quadratic form becomes
+$$
+\chi^2 = (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x})^T \mathbf{N}^{-1} (\mathbf{d} - \mathbf{P} \mathbf{s} - \mathbf{T} \mathbf{x}) + \mathbf{x}^T \mathbf{X}^{-1} \mathbf{x}
+$$
+
+Following the same procedure, the solution is unchanged except that
+$$
+\mathbf{D}_{\rm T} = \mathbf{I} - \mathbf{T} (\textcolor{red}{\mathbf{X}^{-1}} + \mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}.
+$$
+:::
+
+:::{note} Deprojection operator
+- The operator $\mathbf{D}_{\rm T}$ is called a **deprojection operator** because it projects any vector onto the subspace orthogonal to the templates $\mathbf{T}$ (with respect to the $\mathbf{N}^{-1}$-weighted inner product).  
+- To see this explicitly, apply $\mathbf{D}_{\rm T}$ to the data:
+$$
+\mathbf{D}_{\rm T} \mathbf{d} = [\mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}] (\mathbf{P} \mathbf{s} + \mathbf{T} \mathbf{a} + \mathbf{n}) 
+$$
+
+    Focusing on the template contribution $\mathbf{T}\mathbf{a}$, we obtain
+$$
+&[\mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}] \mathbf{T} \mathbf{a} \\
+= \quad & \mathbf{T} \mathbf{a} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T}) \mathbf{a} \\
+= \quad & 0
+$$
+
+- Therefore, all components lying in the template subspace are removed:
+$$
+\mathbf{D}_{\rm T} \mathbf{T} = 0
+$$
+
+- As a result, $\mathbf{D}_{\rm T}\mathbf{d}$ contains no contribution from the templates, i.e.
+$$
+\mathbf{T}^T \mathbf{N}^{-1} (\mathbf{D}_{\rm T} \mathbf{d}) = 0
+$$
+which confirms that the cleaned data is orthogonal to $\mathbf{T}$.
+:::
+
+#### POMME
+Pomme is a simple version of template map-making, with a set of templates chosen to capture all unpolarised signals that vary slowly over time. The template matrix T adopted in POMME comprises columns with elements spanning a fixed interval of length $\tau$ set to 1, and all other elements vanishing, i.e.,
+$$
+\mathbf{T}_{t}^{(i)} = \begin{cases}
+    &1 \qquad i \tau \leq t <(i + 1) \tau \\
+    &0 \qquad \text{otherwise}
+\end{cases}
+$$
+
+By this definition, we can write
+$$
+\mathbf{D}_{\rm T} = \mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{T})^{-1} \mathbf{T}^T = \mathbf{I} - \dfrac{1}{\tau} \mathbf{J}
+$$
+
+where $J$ is a block-diagonal matrix that consists of $\tau \times \tau$ all-ones matrix blocks $\mathbf{J}_\tau$. 
+
+$\mathbf{D}_{\rm T}$ subtracts the sample mean evaluated at every $\tau$-interval
+$$
+(\mathbf{D}_{\rm T} \, \mathbf{d})_t = d_t - \dfrac{1}{\tau} \sum_{s = i \tau}^{(i+1) \tau - 1} d_s
+$$
+
+:::{prf:proof} $\mathbf{D}_{\rm T}$ simplification
+With white noise $\mathbf{N} = \sigma^2\mathbf{I}$, the deprojection operator is:
+$$\mathbf{D}_T = \mathbf{I} - \mathbf{T}(\mathbf{T}^T\mathbf{T})^{-1}\mathbf{T}^T$$
+
+The POMME template matrix $\mathbf{T}$ has one column per block, with 1s in the block's rows and 0s elsewhere. Label the blocks $i = 0, 1, \ldots, B-1$, each of length $\tau$. Then:
+
+$$\mathbf{T} = \begin{pmatrix} \mathbf{1}_\tau & \mathbf{0} & \cdots & \mathbf{0} \\ \mathbf{0} & \mathbf{1}_\tau & \cdots & \mathbf{0} \\ \vdots & & \ddots & \vdots \\ \mathbf{0} & \cdots & & \mathbf{1}_\tau \end{pmatrix} \in \mathbb{R}^{N_t \times B}$$
+
+where $\mathbf{1}_\tau$ is a column of $\tau$ ones.
+
+**Step 1: compute $\mathbf{T}^T\mathbf{T}$** 
+
+The $(i,j)$ entry is $\mathbf{T}^{(i)\,T}\mathbf{T}^{(j)}$. The blocks have disjoint support, so:
+$$(\mathbf{T}^T\mathbf{T})_{ij} = \mathbf{1}_\tau^T \mathbf{1}_\tau \,\delta_{ij} = \tau\,\delta_{ij}$$
+$$\Rightarrow \quad \mathbf{T}^T\mathbf{T} = \tau\,\mathbf{I}_B, \qquad (\mathbf{T}^T\mathbf{T})^{-1} = \frac{1}{\tau}\mathbf{I}_B$$
+```{prf:example}
+Let $\tau = 2$ 
+$$
+\mathbf{T} = \begin{pmatrix}
+    1 & 0 \\
+    1 & 0 \\
+    0 & 1 \\
+    0 & 1 \\
+\end{pmatrix} \qquad  \mathbf{T}^{T} = \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 1 \\
+\end{pmatrix}
+$$
+Then 
+$$
+\mathbf{T}^T \mathbf{T} = \begin{pmatrix}
+    2 & 0 \\
+    0 & 2
+\end{pmatrix} = 2 \, \mathbf{I}_{2 \times 2}
+$$
+```
+**Step 2: compute $\mathbf{T}(\mathbf{T}^T\mathbf{T})^{-1}\mathbf{T}^T$** 
+
+Substituting:
+$$\mathbf{T}(\mathbf{T}^T\mathbf{T})^{-1}\mathbf{T}^T = \frac{1}{\tau}\mathbf{T}\mathbf{T}^T$$
+
+Now compute $\mathbf{T}\mathbf{T}^T$. Its $(t, t')$ entry is:
+$$(\mathbf{T}\mathbf{T}^T)_{tt'} = \sum_i T_{ti} T_{t'i} = \begin{cases} 1 & \text{if } t, t' \text{ are in the same block} \\ 0 & \text{otherwise} \end{cases}$$
+
+This is exactly the block-diagonal matrix with $\tau\times\tau$ all-ones blocks $\mathbf{J}_\tau$:
+$$\mathbf{T}\mathbf{T}^T = \mathbf{J} := \mathrm{diag}(\mathbf{J}_\tau, \mathbf{J}_\tau, \ldots, \mathbf{J}_\tau)$$
+
+```{prf:example}
+$$
+\mathbf{T} \mathbf{T}^T = \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    1 & 1 & 0 & 0 \\    
+    0 & 0 & 1 & 1 \\   
+    0 & 0 & 1 & 1 \\
+\end{pmatrix}
+$$
+```
+**Step 3:**
+$$\boxed{\mathbf{D}_T = \mathbf{I} - \frac{1}{\tau}\mathbf{J}}$$
+
+The action on any vector $\mathbf{v}$ is:
+$$(\mathbf{D}_T\mathbf{v})_t = v_t - \frac{1}{\tau}\sum_{t' \in \text{block}(t)} v_{t'} = v_t - \bar{v}_{\text{block}(t)}$$
+
+confirming that $\mathbf{D}_T$ is a **block-wise mean subtraction operator**. $\blacksquare$
+
+```{prf:example}
+Given
+$$
+\mathbf{d} = \begin{pmatrix}
+    1 \\ 2 \\ 3 \\4
+\end{pmatrix}
+$$
+We have
+$$
+\mathbf{D}_T \mathbf{d} = \mathbf{d} - \dfrac{1}{\tau} \begin{pmatrix}
+    3 \\ 3 \\ 7 \\ 7
+\end{pmatrix}
+$$
+```
+:::
+
+:::{important} Fourier representation of $\mathbf{D}_{\rm T}$
+**The broken symmetry.** Ordinary block-averaging is *not* time-translation invariant. If you shift the data by one sample, the block boundaries fall in different places, giving a different $\mathbf{D}_{\rm T}$​. In Fourier language this means $\mathbf{D}_{\rm T}$​ is not diagonal in the DFT basis — it couples nearby frequencies.
+:::

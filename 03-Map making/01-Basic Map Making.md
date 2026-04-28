@@ -110,6 +110,8 @@ $$
 :::
 
 ## Map-making
+Map-making is an inverse problem because we reconstruct a 2D sky map $\mathbf{s}$ from a 1D noisy time stream $\mathbf{d}$, using knowledge of how the telescope projects the sky through the pointing operator $\mathbf{P}$.
+
 ### Maximum Likelihood
 If the noise is Gaussian with covariance $\mathbf{N}$, the maximum likelihood estimate of $\mathbf{s}$ is:
 
@@ -144,7 +146,7 @@ $$
 - However, computing the matrix inverse $(\mathbf{P}^T \mathbf{N}^{-1} \mathbf{P})^{-1}$ directly is *computationally infeasible* for realistic data sizes. In practice, the system is solved iteratively using methods like **conjugate gradient** without ever forming or inverting the matrix explicitly.
 :::
 ### Binned map-making
-In many CMB experiments, the noise is **uncorrelated** in time (white noise), so
+If the noise is **uncorrelated** in time (white noise)
 $$
 \mathbf{N} = \sigma^2 \mathbf{I}
 $$

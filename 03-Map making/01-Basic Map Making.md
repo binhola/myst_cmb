@@ -499,6 +499,9 @@ $$
 \end{cases}
 $$
 
+```{figure} #D_T_fourier
+:width: 100%
+```
 where $B = N/\tau$ is the number of blocks, and the frequency‑dependent factor $C_k$ is given by
 
 $$
@@ -510,6 +513,12 @@ The magnitude is
 $$
 |C_k| = \left|\frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}\right|.
 $$
+
+```{figure} #C_k
+:width: 100%
+:label: Ck
+Frequency response for $N = 24$
+```
 <!-- Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance. -->
 
 :::{prf:proof} Full derivation of $(\tilde{\mathbf{D}}_{\rm T})_{kk'}$
@@ -577,12 +586,21 @@ B, & k'\equiv k\pmod{B},\\[2pt]
 \end{cases}
 $$
 
+```{figure} #A_matrix
+:width: 100%
+:label: aliasing
+Aliasing Structure
+```
+
 Therefore $(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'}$ is non‑zero only when $k'\equiv k\pmod{B}$, and in that case
 
 $$
 (\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'} = \frac{B}{N}\,C_k C_{k'}^* = \frac{C_k C_{k'}^*}{\tau}.
 $$
 
+```{figure} #FJF_dagger
+:width: 100%
+```
 Substituting back gives  
 
 $$

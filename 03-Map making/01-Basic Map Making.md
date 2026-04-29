@@ -267,7 +267,7 @@ again recovering the true values exactly.
 Binned map‑making reproduces the input Stokes parameters perfectly in this noise‑free test. The algorithm only requires per‑pixel sums, avoiding the construction of the full pointing matrix. For white noise, this is the optimal minimum‑variance map.
 :::
 
-### Pomme map-making
+### POMME map-making
 
 #### Template map-making
 *Template-based* map-making model, where the template $\mathbf{T}$ accounts for any non-white noise contributions (e.g. atmospheric noise, scan-synchronous signals, HWP systematics and non-idealities):
@@ -342,6 +342,7 @@ $$
 :::
 
 :::{note} Deprojection operator
+:class:dropdown
 - The operator $\mathbf{D}_{\rm T}$ is called a **deprojection operator** because it projects any vector onto the subspace orthogonal to the templates $\mathbf{T}$ (with respect to the $\mathbf{N}^{-1}$-weighted inner product).  
 - To see this explicitly, apply $\mathbf{D}_{\rm T}$ to the data:
 $$
@@ -389,6 +390,7 @@ $$
 $$
 
 :::{prf:proof} $\mathbf{D}_{\rm T}$ simplification
+:class: dropdown
 With white noise $\mathbf{N} = \sigma^2\mathbf{I}$, the deprojection operator is:
 $$\mathbf{D}_T = \mathbf{I} - \mathbf{T}(\mathbf{T}^T\mathbf{T})^{-1}\mathbf{T}^T$$
 
@@ -470,5 +472,225 @@ $$
 :::
 
 :::{important} Fourier representation of $\mathbf{D}_{\rm T}$
-**The broken symmetry.** Ordinary block-averaging is *not* time-translation invariant. If you shift the data by one sample, the block boundaries fall in different places, giving a different $\mathbf{D}_{\rm T}$​. In Fourier language this means $\mathbf{D}_{\rm T}$​ is not diagonal in the DFT basis — it couples nearby frequencies.
+**The broken symmetry.** Ordinary block-averaging is *not* time-translation invariant. If you shift the data by one sample, the block boundaries fall in different places, giving a different $\mathbf{D}_{\rm T}$​. In Fourier language this means $\mathbf{D}_{\rm T}$​ is not diagonal in the DFT basis, it couples frequencies that belong to the same *aliasing class.
 :::
+
+#### Fourier representation of the deprojection operator
+Define the Discrete Fourier Transform (DFT) matrix  
+
+$$
+F_{kt} = \frac{1}{\sqrt{N}}\, e^{-2\pi i\, k t / N}, \qquad k,t = 0,\dots,N-1,
+$$
+
+and the transformed operator  
+
+$$
+\tilde{\mathbf{D}}_{\rm T} = \mathbf{F}\,\mathbf{D}_{\rm T}\,\mathbf{F}^{\dagger}.
+$$
+
+The matrix elements of $\tilde{\mathbf{D}}_{\rm T}$ are:
+
+$$
+(\tilde{\mathbf{D}}_{\rm T})_{kk'} = 
+\begin{cases}
+1 - \dfrac{|C_k|^2}{\tau^2}, & k = k', \\[6pt]
+-\,\dfrac{C_k C_{k'}^*}{\tau^2}, & k \equiv k' \pmod{B},\; k'\neq k, \\[6pt]
+0, & \text{otherwise},
+\end{cases}
+$$
+
+where $B = N/\tau$ is the number of blocks, and the frequency‑dependent factor $C_k$ is given by
+
+$$
+C_k = \sum_{s=0}^{\tau-1} e^{-2\pi i\, k s / N}
+    = e^{-\pi i\, k (\tau-1)/N}\; \frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}.
+$$
+
+Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance.
+
+:::{prf:proof} Full derivation of $(\tilde{\mathbf{D}}_{\rm T})_{kk'}$
+:class:dropdown
+We start from $\mathbf{D}_{\rm T} = \mathbf{I} - \frac{1}{\tau}\mathbf{J}$, with $\mathbf{J}_{tt'}=1$ if $t$ and $t'$ lie in the same block and $0$ otherwise.  Then
+
+$$
+(\tilde{\mathbf{D}}_{\rm T})_{kk'} = \delta_{kk'} - \frac{1}{\tau}\,(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'}.
+$$
+
+We need $(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'}$.  Write $t = b\tau + s$, $t' = b\tau + s'$ where:
+- $b = 0,1,\dots,B-1$ (block index),  
+- $s,s' = 0,\dots,\tau-1$ (position inside the block).
+
+Because $J_{tt'}=1$ only when $t$ and $t'$ are in the same block (same $b$), we have
+
+$$
+(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'}
+= \frac{1}{N}\sum_{b=0}^{B-1}\sum_{s=0}^{\tau-1}\sum_{s'=0}^{\tau-1}
+  e^{-2\pi i\,k(b\tau+s)/N}\; e^{2\pi i\,k'(b\tau+s')/N}.
+$$
+
+Factor the exponentials:
+
+$$
+= \frac{1}{N}
+   \underbrace{\left(\sum_{b=0}^{B-1} e^{-2\pi i\,(k'-k)b\tau/N}\right)}_{\displaystyle \text{aliasing structure } A}
+   \underbrace{\left(\sum_{s=0}^{\tau-1} e^{-2\pi i\,k s/N}\right)}_{\displaystyle \text{frequency response } C_k}
+   \underbrace{\left(\sum_{s'=0}^{\tau-1} e^{2\pi i\,k' s'/N}\right)}_{\displaystyle C_{k'}^*}.
+$$
+
+Since $\tau/N = 1/B$, the exponent in $A$ becomes $-2\pi i\,(k'-k)b/B$.  Thus
+
+$$
+A = \sum_{b=0}^{B-1} e^{-2\pi i\,(k'-k)b/B}.
+$$
+
+This is a geometric series.  Write $k'-k = qB + r$ with $q,r\in\mathbb{Z}$ and $r\equiv (k'-k)\bmod B$, $0\le r<B$.  Then
+
+$$
+e^{-2\pi i\,(k'-k)b/B} = e^{-2\pi i\,(qB+r)b/B} = e^{-2\pi i\,q b}\, e^{-2\pi i\, r b/B} = e^{-2\pi i\, r b/B},
+$$
+
+because $e^{-2\pi i q b}=1$.  Hence
+
+$$
+A = \sum_{b=0}^{B-1} e^{-2\pi i\, r b/B}.
+$$
+
+- If $r=0$ (i.e. $k'\equiv k\pmod{B}$), each term is $1$, so $A = B$.
+- If $r\neq 0$, the sum is a geometric series with ratio $\rho = e^{-2\pi i r/B}$.  Its value is
+
+$$
+A = \frac{1-\rho^{B}}{1-\rho} = \frac{1-e^{-2\pi i r}}{1-\rho} = 0,
+$$
+
+because $e^{-2\pi i r}=1$.
+
+Thus
+
+$$
+A = \begin{cases}
+B, & k'\equiv k\pmod{B},\\[2pt]
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Therefore $(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'}$ is non‑zero only when $k'\equiv k\pmod{B}$, and in that case
+
+$$
+(\mathbf{F}\mathbf{J}\mathbf{F}^{\dagger})_{kk'} = \frac{B}{N}\,C_k C_{k'}^* = \frac{C_k C_{k'}^*}{\tau}.
+$$
+
+Substituting back gives  
+
+$$
+(\tilde{\mathbf{D}}_{\rm T})_{kk'} = \delta_{kk'} - \frac{1}{\tau}\cdot\frac{C_k C_{k'}^*}{\tau}
+= \delta_{kk'} - \frac{C_k C_{k'}^*}{\tau^2}.
+$$
+
+Separating the diagonal ($k=k'$) and off‑diagonal ($k'\equiv k\bmod B$, $k'\neq k$) parts yields the stated result.
+:::
+
+:::{prf:proof} Full derivation of $C_k$
+:class:dropdown
+We have
+
+$$
+C_k = \sum_{s=0}^{\tau-1} e^{-2\pi i\, k s / N}.
+$$
+
+This is again a geometric series.  Write $\omega = e^{-2\pi i k/N}$.  Then
+
+$$
+C_k = \sum_{s=0}^{\tau-1} \omega^s = \frac{1-\omega^\tau}{1-\omega},
+$$
+
+provided $\omega\neq 1$ (i.e. $k$ not a multiple of $N$; the case $k=0$ is treated separately).  Now
+
+$$
+\omega^\tau = e^{-2\pi i k\tau/N}, \qquad 1-\omega = 1-e^{-2\pi i k/N}.
+$$
+
+Factor out half‑exponentials to obtain the sine form:
+
+$$
+1-\omega^\tau = e^{-\pi i k\tau/N}\left(e^{\pi i k\tau/N} - e^{-\pi i k\tau/N}\right)
+= e^{-\pi i k\tau/N}\, 2i\sin(\pi k\tau/N),
+$$
+
+$$
+1-\omega = e^{-\pi i k/N}\left(e^{\pi i k/N} - e^{-\pi i k/N}\right)
+= e^{-\pi i k/N}\, 2i\sin(\pi k/N).
+$$
+
+Therefore
+
+$$
+C_k = \frac{e^{-\pi i k\tau/N}\, 2i\sin(\pi k\tau/N)}{e^{-\pi i k/N}\, 2i\sin(\pi k/N)}
+= e^{-\pi i k (\tau-1)/N}\; \frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}.
+$$
+
+For $k=0$ (or $k$ multiple of $N$), the expression is understood as the limit $k\to0$, which gives $C_0 = \tau$.  The magnitude is
+
+$$
+|C_k| = \left|\frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}\right|.
+$$
+:::
+
+:::{note}
+The condition $k'\equiv k\pmod{B}$ defines the **aliasing class**:
+$$
+\{k,\; k\pm B,\; k\pm 2B,\; \dots\}.
+$$
+
+Frequencies within the same class are coupled by $\mathbf{D}_{\rm T}$.  This coupling arises because the block‑averaging filter is not translation‑invariant.
+:::
+
+#### What does $\mathbf{D}_{\rm T}$ do to the power spectrum?
+The TOD noise is $\mathbf{n}$ with power spectrum $P_k = \langle |\hat n_k|^2 \rangle$. For $1/f$ noise:
+$$
+P_k = \sigma^2 \left[ 1 + \left( \dfrac{f_{\rm knee}}{f_k} \right)^\alpha \right], \qquad f_k = \dfrac{k}{N} \cdot f_s
+$$
+
+We apply the filter to the noise:
+$$
+\hat n_k^{\rm out} = \sum_{k'} (\mathbf{\tilde D}_{\rm T})_{kk'} \hat n_{k'}
+$$
+
+The power at frequency $k$ is then
+$$
+\langle |\hat n_k^{\rm out}|^2 \rangle = \sum_{k'} \sum_{k''} (\mathbf{\tilde D}_{\rm T})_{kk'} (\mathbf{\tilde D}_{\rm T})_{kk''}^* \langle n_{k'} n_{k''}^*\rangle
+$$
+
+For stationary noise, $\langle n_{k'} n_{k''}^*\rangle = P_{k'} \delta_{k' k''}$. Therefore,
+$$
+P_{k}^{\rm deproj} = \sum_{k'} |(\mathbf{\tilde D}_{\rm T})_{kk'}|^2 \cdot P_{k'}
+$$
+
+The output power at frequency $k$ is **not** simply $|(\mathbf{\tilde D}_{\rm T})_{kk}|^2 \cdot P_{k}$; it also receives contributions from all $k'$ in the same aliasing class.
+
+We now separate the diagonal and off-diagonal contributions:
+$$
+P_{k}^{\rm deproj} &=\sum_{k': k' \equiv k} \left| \delta_{k k'} - \dfrac{C_k C_{k'}^*}{\tau^2} \right|^2 \cdot P_{k'} \\
+P_{k}^{\rm deproj} &= \underbrace{\left( 1 - \dfrac{|C_k|^2}{\tau^2} \right)^2 P_{k}}_{\text{filter term}} + \underbrace{\sum_{\substack{k' \equiv k \ \mathrm{mod}\ B \\ k' \neq k}} \dfrac{|C_k|^2 |C_{k'}|^2}{\tau^4} P_{k'}}_{\text{leakage term}}
+$$
+
+The first term describes the attenuation of frequency $k$ (a high-pass filtering effect).
+
+The second term represents the leakage of power from the other members of the same aliasing class.
+
+If the noise is white ($P_{k'} = \sigma^2$ for all $k'$), the leakage term simplifies:
+$$
+\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left[\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)^2+\frac{\left|C_k\right|^2}{\tau^4} \sum_{\substack{k' \equiv k \ \mathrm{mod}\ B \\ k' \neq k}}\left|C_{k^{\prime}}\right|^2\right]
+$$
+
+Using Parseval’s identity within the aliasing class,
+$$
+\sum_{k' \equiv k \text{ mod } B} |C_{k'}|^2 = \tau N / B = \tau^2
+$$
+we obtain
+$$
+\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau N}\right)
+$$
+
+This reduces to a purely diagonal filter. For white noise, the projection operator does not produce any leakage (since all members of the aliasing class have the same power, the contributions cancel out).
+
+For $1/f$ noise, however, the low-frequency members of each aliasing class carry more power, and this excess power leaks into higher frequencies.

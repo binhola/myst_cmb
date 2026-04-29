@@ -688,7 +688,7 @@ $$
 $$
 we obtain
 $$
-\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau N}\right)
+\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)
 $$
 
 This reduces to a purely diagonal filter. For white noise, the projection operator does not produce any leakage (since all members of the aliasing class have the same power, the contributions cancel out).

@@ -506,7 +506,11 @@ C_k = \sum_{s=0}^{\tau-1} e^{-2\pi i\, k s / N}
     = e^{-\pi i\, k (\tau-1)/N}\; \frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}.
 $$
 
-Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance.
+The magnitude is
+$$
+|C_k| = \left|\frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}\right|.
+$$
+<!-- Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance. -->
 
 :::{prf:proof} Full derivation of $(\tilde{\mathbf{D}}_{\rm T})_{kk'}$
 :class:dropdown
@@ -628,11 +632,7 @@ C_k = \frac{e^{-\pi i k\tau/N}\, 2i\sin(\pi k\tau/N)}{e^{-\pi i k/N}\, 2i\sin(\p
 = e^{-\pi i k (\tau-1)/N}\; \frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}.
 $$
 
-For $k=0$ (or $k$ multiple of $N$), the expression is understood as the limit $k\to0$, which gives $C_0 = \tau$.  The magnitude is
-
-$$
-|C_k| = \left|\frac{\sin(\pi k\tau/N)}{\sin(\pi k/N)}\right|.
-$$
+For $k=0$ (or $k$ multiple of $N$), the expression is understood as the limit $k\to0$, which gives $C_0 = \tau$.  
 :::
 
 :::{note}

@@ -145,6 +145,36 @@ $$
 - The maximum likelihood estimator is **unbiased** under correct model assumptions and provides an optimal (lossless in Fisher information) compression from TOD to map.
 - However, computing the matrix inverse $(\mathbf{P}^T \mathbf{N}^{-1} \mathbf{P})^{-1}$ directly is *computationally infeasible* for realistic data sizes. In practice, the system is solved iteratively using methods like **conjugate gradient** without ever forming or inverting the matrix explicitly.
 :::
+
+#### Noise model: stationary noise and Toeplitz structure
+In GLS map-making, aside from computational cost, the noise model is a crucial ingredient.
+
+In real observations, the noise is never white: it contains temporal correlations such as $1/f$ drifts and atmospheric fluctuations. 
+
+A minimal and widely used assumption is that the noise is stationary, meaning its statistical properties do not depend on time. Under this assumption, the noise covariance between two time samples depends only on their time difference, described by **Toeplitz** matrix:
+$$
+\mathbf{N}_{ij} = \langle n_i n_j \rangle = R(|i-j|)
+$$
+
+:::{prf:example} Toeplitz matrix
+A $5 \times 5$ Toeplitz matrix looks like:
+
+$$
+\mathbf{N} = 
+\begin{pmatrix}
+R_0 & R_1 & R_2 & R_3 & R_4 \\
+R_1 & R_0 & R_1 & R_2 & R_3 \\
+R_2 & R_1 & R_0 & R_1 & R_2 \\
+R_3 & R_2 & R_1 & R_0 & R_1 \\
+R_4 & R_3 & R_2 & R_1 & R_0 \\
+\end{pmatrix}
+$$
+:::
+
+:::{note} 
+- A Toeplitz matrix is fully described by its first row. (enhance memory efficency)
+- Multiplication of a vector by $\mathbf{N}$ (or $\mathbf{N}^{-1}$) can be done efficiently using **circulant embedding** and FFT.
+:::
 ### Binned map-making
 If the noise is **uncorrelated** in time (white noise)
 $$
@@ -712,3 +742,7 @@ $$
 This reduces to a purely diagonal filter. For white noise, the projection operator does not produce any leakage (since all members of the aliasing class have the same power, the contributions cancel out).
 
 For $1/f$ noise, however, the low-frequency members of each aliasing class carry more power, and this excess power leaks into higher frequencies.
+
+#### Choosing $\tau$
+
+[*Draft need to work on*]

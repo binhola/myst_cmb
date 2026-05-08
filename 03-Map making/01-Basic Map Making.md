@@ -552,7 +552,7 @@ Frequency response for $N = 24$
 ```
 :::{caution} Divisibility condition
 The result above assumes that $\tau$ divides $N_t$ exactly, so that
-$B = N_t/\tau$ is an integer and all blocks have the same length $\tau$.
+$B = N/\tau$ is an integer and all blocks have the same length $\tau$.
 
 Under this condition, the factor
 
@@ -572,7 +572,7 @@ $$
 This occurs because the $B$ phases are equally spaced on the unit circle,
 which requires $B$ to be an integer.
 
-If $\tau$ does not divide $N_t$, the last block is shorter than $\tau$. The
+If $\tau$ does not divide $N$, the last block is shorter than $\tau$. The
 sum $A$ no longer contains $B$ equal contributions, so the cancellation
 becomes inexact: entries of
 $(\mathbf{F}\mathbf{J}\mathbf{F}^\dagger)_{kk'}$

@@ -550,6 +550,43 @@ $$
 :label: Ck
 Frequency response for $N = 24$
 ```
+:::{caution} Divisibility condition
+The result above assumes that $\tau$ divides $N_t$ exactly, so that
+$B = N_t/\tau$ is an integer and all blocks have the same length $\tau$.
+
+Under this condition, the factor
+
+$$
+A = \sum_{b=0}^{B-1} e^{2\pi i(k'-k)b/B}
+$$
+
+is a geometric series over $B$ complete, equal-length blocks. Its exact
+cancellation relies on the fact that
+
+$$
+A = 0
+\qquad \text{whenever} \qquad
+k' \not\equiv k \pmod B .
+$$
+
+This occurs because the $B$ phases are equally spaced on the unit circle,
+which requires $B$ to be an integer.
+
+If $\tau$ does not divide $N_t$, the last block is shorter than $\tau$. The
+sum $A$ no longer contains $B$ equal contributions, so the cancellation
+becomes inexact: entries of
+$(\mathbf{F}\mathbf{J}\mathbf{F}^\dagger)_{kk'}$
+that should vanish for
+$k' \not\equiv k \pmod B$
+become small but nonzero.
+
+As a consequence, $\tilde{\mathbf{D}}_T$ is no longer block-diagonal in the
+aliasing-class sense: a frequency $k$ can leak into frequencies
+$k'$ outside its aliasing class modulo $B$.
+
+> In practice, if this happens, the simple solution is simply masking the last incomplete block.
+:::
+
 <!-- Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance. -->
 
 :::{prf:proof} Full derivation of $(\tilde{\mathbf{D}}_{\rm T})_{kk'}$
@@ -692,7 +729,6 @@ $$
 
 Frequencies within the same class are coupled by $\mathbf{D}_{\rm T}$.  This coupling arises because the block‑averaging filter is not translation‑invariant.
 :::
-
 #### What does $\mathbf{D}_{\rm T}$ do to the power spectrum?
 The TOD noise is $\mathbf{n}$ with power spectrum $P_k = \langle |\hat n_k|^2 \rangle$. For $1/f$ noise:
 $$

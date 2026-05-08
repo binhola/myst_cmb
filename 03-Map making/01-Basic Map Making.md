@@ -112,6 +112,7 @@ $$
 ## Map-making
 Map-making is an inverse problem because we reconstruct a 2D sky map $\mathbf{s}$ from a 1D noisy time stream $\mathbf{d}$, using knowledge of how the telescope projects the sky through the pointing operator $\mathbf{P}$.
 
+[View the animation](../images/scan_animation_maps.html)
 ### Maximum Likelihood
 If the noise is Gaussian with covariance $\mathbf{N}$, the maximum likelihood estimate of $\mathbf{s}$ is:
 
@@ -746,3 +747,13 @@ For $1/f$ noise, however, the low-frequency members of each aliasing class carry
 #### Choosing $\tau$
 
 [*Draft need to work on*]
+
+## Systematic effects of map-making
+
+### Scan-synchronous signal
+
+### Atmospherics
+
+### Gain drift
+
+### HWP scan-synchronous signal

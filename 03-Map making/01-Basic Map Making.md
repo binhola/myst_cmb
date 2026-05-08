@@ -551,7 +551,7 @@ $$
 Frequency response for $N = 24$
 ```
 :::{caution} Divisibility condition
-The result above assumes that $\tau$ divides $N_t$ exactly, so that
+The result above assumes that $\tau$ divides $N$ exactly, so that
 $B = N/\tau$ is an integer and all blocks have the same length $\tau$.
 
 Under this condition, the factor

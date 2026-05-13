@@ -28,6 +28,8 @@ $$
 where $\mathbf{r}_t = \bigl(1,\; \cos(-2\varphi_t+4\psi_t),\; \sin(-2\varphi_t+4\psi_t)\bigr)$ is placed in the three columns corresponding to the pixel $p(t)$ observed at time $t$.
 
 :::{prf:example} A 2-pixel universe
+:class:dropdown
+
 Imagine you are living in a 2-pixel universe. Given $N_t=5$, $N_p=2$
 
 $$
@@ -158,6 +160,7 @@ $$
 $$
 
 :::{prf:example} Toeplitz matrix
+:class:dropdown
 A $5 \times 5$ Toeplitz matrix looks like:
 
 $$
@@ -212,6 +215,7 @@ which is just the **average** of all measurements that fell into pixel $p$.
 :::
 
 :::{prf:example} Binned map-making in the 2-pixel universe
+:class:dropdown
 We continue with the same example. The TOD vector computed earlier is:
 
 $$
@@ -550,7 +554,18 @@ $$
 :label: Ck
 Frequency response for $N = 24$
 ```
+
+:::{note} Aliasing class
+The condition $k'\equiv k\pmod{B}$ defines the **aliasing class**:
+$$
+\{k,\; k\pm B,\; k\pm 2B,\; \dots\}.
+$$
+
+Frequencies within the same class are coupled by $\mathbf{D}_{\rm T}$.  This coupling arises because the block‑averaging filter is not translation‑invariant.
+:::
+
 :::{caution} Divisibility condition
+:class:dropdown
 The result above assumes that $\tau$ divides $N$ exactly, so that
 $B = N/\tau$ is an integer and all blocks have the same length $\tau$.
 
@@ -585,15 +600,6 @@ aliasing-class sense: a frequency $k$ can leak into frequencies
 $k'$ outside its aliasing class modulo $B$.
 
 > In practice, if this happens, the simple solution is simply masking the last incomplete block.
-:::
-
-:::{note} Aliasing class
-The condition $k'\equiv k\pmod{B}$ defines the **aliasing class**:
-$$
-\{k,\; k\pm B,\; k\pm 2B,\; \dots\}.
-$$
-
-Frequencies within the same class are coupled by $\mathbf{D}_{\rm T}$.  This coupling arises because the block‑averaging filter is not translation‑invariant.
 :::
 <!-- Frequencies $k$ and $k'$ that differ by a multiple of $B$ (i.e. $k' = k + mB$) belong to the same *aliasing class* and are coupled by $\mathbf{D}_{\rm T}$.  This coupling is a direct consequence of the broken time‑translation invariance. -->
 
@@ -753,8 +759,8 @@ The output power at frequency $k$ is **not** simply $|(\mathbf{\tilde D}_{\rm T}
 
 We now separate the diagonal and off-diagonal contributions:
 $$
-P_{k}^{\rm deproj} &=\sum_{k': k' \equiv k} \left| \delta_{k k'} - \dfrac{C_k C_{k'}^*}{\tau^2} \right|^2 \cdot P_{k'} \\
-P_{k}^{\rm deproj} &= \underbrace{\left( 1 - \dfrac{|C_k|^2}{\tau^2} \right)^2 P_{k}}_{\text{filter term}} + \underbrace{\sum_{\substack{k' \equiv k \ \mathrm{mod}\ B \\ k' \neq k}} \dfrac{|C_k|^2 |C_{k'}|^2}{\tau^4} P_{k'}}_{\text{leakage term}}
+P_{k}^{\rm deproj} =\sum_{k': k' \equiv k} \left| \delta_{k k'} - \dfrac{C_k C_{k'}^*}{\tau^2} \right|^2 \cdot P_{k'} \\
+\boxed{P_{k}^{\rm deproj} = \underbrace{\left( 1 - \dfrac{|C_k|^2}{\tau^2} \right)^2 P_{k}}_{\text{filter term}} + \underbrace{\sum_{\substack{k' \equiv k \ \mathrm{mod}\ B \\ k' \neq k}} \dfrac{|C_k|^2 |C_{k'}|^2}{\tau^4} P_{k'}}_{\text{leakage term}}}
 $$
 
 The first term describes the attenuation of frequency $k$ (a high-pass filtering effect).
@@ -772,23 +778,107 @@ $$
 $$
 we obtain
 $$
-\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)
+\boxed{
+\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)}
 $$
 
-This reduces to a purely diagonal filter. For white noise, the projection operator does not produce any leakage (since all members of the aliasing class have the same power, the contributions cancel out).
+This reduces to a purely diagonal filter. 
 
-For $1/f$ noise, however, the low-frequency members of each aliasing class carry more power, and this excess power leaks into higher frequencies.
+:::{note}
+- For white noise, the operator does not produce any leakage (since all members of the aliasing class have the same power, the contributions cancel out).
 
+- For $1/f$ noise, however, the low-frequency members of each aliasing class carry more power, and this excess power leaks into higher frequencies.
+:::
 #### Choosing $\tau$
 
 [*Draft need to work on*]
 
+### Orthogonal Templates
+For the real experiments, we always have masks:
+- **Scanning masks:** accounts for turnaround edges (when the telescope turnaround, it decelerates and accelerates again, causing the telescope to heat up, hwp jittering and many other effects,....), So we usually mask them.
+- **Sample masks:** masks for bad samples, usually the selection perform during preprocessing
+
+To account for the masks in POMME map-making, the full model 
+$$
+\mathbf{d} = \mathbf{P} \mathbf{s} + \mathbf{T}_1 \mathbf{x}_1 + \mathbf{M}\mathbf{x}_2 + \mathbf{n}
+$$
+where
+- $\mathbf{T}_1$: Pomme block-constant templates, one column per *complete* block of length $\tau$.
+- $\mathbf{M}$: Mask templates, one column per flagged sample (a single 1 at flagged position, 0 elsewhere)
+- $\mathbf{x}_1$: Slow varying components that POMME marginalises
+- $\mathbf{x}_2$: The values of the flagged samples that also marginalized because we do not care
+
+Let $\mathbf{T} = \begin{pmatrix}
+\mathbf{T}_1 & \mathbf{M}
+\end{pmatrix}$ and $\mathbf{x} = \begin{pmatrix}
+    \mathbf{x}_1 & \mathbf{x_2}
+\end{pmatrix}^T$, we have the form:
+$$
+\mathbf{d} = \mathbf{P} \mathbf{s} + \mathbf{T} \mathbf{x} + \mathbf{n}
+$$
+
+Marginalising over both $\mathbf{x}_1$ and $\mathbf{x}_2$ simultaneously gives a single deprojection operator:
+$$
+\mathbf{D_T} = \mathbf{I} - \mathbf{T} (\mathbf{T}^T \mathbf{N}^{-1} \mathbf{T})^{-1} \mathbf{T}^T \mathbf{N}^{-1}
+$$
+
+With white noise, we only need to evaluate $\mathbf{T}^T \mathbf{T}$. The combined matrix has block structure:
+$$
+\mathbf{T}^T \mathbf{T} = \begin{pmatrix}
+    \mathbf{T}_1^T \mathbf{T}_1 & \mathbf{T}_1^T \mathbf{M} \\
+    \mathbf{M}^T \mathbf{T}_1 & \mathbf{M}^T \mathbf{M}
+\end{pmatrix}
+$$
+
+For POMME, we will mask entire block for any incomplete block (block contains masked sample or last block if $N / \tau $ is not integer). Therefore, $\mathbf{T}_1$ and $\mathbf{M}$ have *disjoint support* (orthogonal). The combined matrix now is a **block diagonal matrix**:
+$$
+\mathbf{T}^T \mathbf{T} = \begin{pmatrix}
+    \mathbf{T}_1^T \mathbf{T}_1 & 0 \\
+    0 & \mathbf{M}^T \mathbf{M}
+\end{pmatrix}
+$$
+
+The inverse will be also block diagonal matrix:
+$$
+(\mathbf{T}^T \mathbf{T})^{-1} = \begin{pmatrix}
+    (\mathbf{T}_1^T \mathbf{T}_1)^{-1} & 0 \\
+    0 & (\mathbf{M}^T \mathbf{M})^{-1}
+\end{pmatrix}
+$$
+
+We subsitute this into the deprojection operator
+
+$$
+\mathbf{T} (\mathbf{T}^T \mathbf{T})^{-1} \mathbf{T}^{T} &= \begin{pmatrix}
+    \mathbf{T}_1 & \mathbf{M}
+\end{pmatrix} 
+\begin{pmatrix}
+    (\mathbf{T}_1^T \mathbf{T}_1)^{-1} & 0 \\
+    0 & (\mathbf{M}^T \mathbf{M})^{-1}
+\end{pmatrix} \begin{pmatrix}
+    \mathbf{T}_1^T \\ \mathbf{M}^T
+\end{pmatrix} \\
+&= \underbrace{\mathbf{T}_1 (\mathbf{T}_1^T \mathbf{T}_1)^{-1} \mathbf{T}_1^{T}}_{\text{pomme projection}} + \underbrace{\mathbf{M} (\mathbf{M}^T \mathbf{M})^{-1} \mathbf{M}^{T}}_{\text{mask projection}}
+$$
+
+Therefore,
+$$
+\boxed{\mathbf{D_T} = \mathbf{D}_{\mathbf{T}_1} \mathbf{D}_{\mathbf{M}} = \mathbf{D}_{\mathbf{M}} \mathbf{D}_{\mathbf{T}_1}}
+$$
+where
+- $\mathbf{D_{T_1}} = \mathbf{I} - \mathbf{T}_1 (\mathbf{T}_1^T \mathbf{T}_1)^{-1} \mathbf{T}_1^{T}$
+- $\mathbf{D_{M}} = \mathbf{I} - \mathbf{M} (\mathbf{M}^T \mathbf{M})^{-1} \mathbf{M}^{T}$
+:::{note} Remark
+- If the template matrices are column-wise orthogonal to each other, the combined deprojection operator is simply the sequential application of two independent projections. This can improve computational and memory efficiency. 
+- In practice, this is enforced by POMME by discarding any block that contains a flagged sample or incomplete.
+:::
 ## Systematic effects of map-making
 
-### Scan-synchronous signal
-
-### Atmospherics
-
-### Gain drift
-
 ### HWP scan-synchronous signal
+HWPSS model, the template for HWPSS estimate at time $t$ with the HWP angles $\chi(t)$:
+$$
+s_{hwp} = \sum_{k \in \mathcal{M}} [ A_k \sin(k \chi(t)) +  B_k \cos(k \chi(t) )]
+$$
+where
+- $\mathcal{M}$ is the set of harmonic modes (e.g. $k = 0, 1, 2, ..., 8$)
+- $A_k$ and $B_k$ are the coefficients to be determined per detectors

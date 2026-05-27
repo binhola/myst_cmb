@@ -791,7 +791,7 @@ This reduces to a purely diagonal filter.
 :::
 #### Choosing $\tau$
 
-[*Draft need to work on*]
+[*should update but too lazy*]
 
 ### Orthogonal Templates
 For the real experiments, we always have masks:
@@ -873,12 +873,118 @@ where
 - In practice, this is enforced by POMME by discarding any block that contains a flagged sample or incomplete.
 :::
 ## Systematic effects of map-making
+### HWP Synchronous Signal 
+An ideal, perfectly rotating HWP would purely modulate the incoming 
+polarized sky signal. For an ideal HWP, only $k = 0, 4$ are non-zero, with
+$$
+A_0 = I/2 \qquad A_4 = Q/2 \qquad B_4 = U/2
+$$
 
-### HWP scan-synchronous signal
-HWPSS model, the template for HWPSS estimate at time $t$ with the HWP angles $\chi(t)$:
+:::{prf:proof} Ideal HWP produces only $k=0,4$
+Given the HWP angle $\varphi$ and detector orientation angle $\alpha$:
+
 $$
-s_{hwp} = \sum_{k \in \mathcal{M}} [ A_k \sin(k \chi(t)) +  B_k \cos(k \chi(t) )]
+d &= \dfrac{1}{2}\left[I + \cos(2\alpha + 4\varphi)\, Q 
+     + \sin(2\alpha + 4\varphi)\, U\right] \\
+  &= \dfrac{I}{2} + \dfrac{1}{2}\Big[
+       (Q\cos 2\alpha + U\sin 2\alpha)\cos 4\varphi
+     + (-Q\sin 2\alpha + U\cos 2\alpha)\sin 4\varphi
+     \Big] \\
+  &= \underbrace{\dfrac{I}{2}}_{k=0}
+   + \underbrace{\dfrac{1}{2}\left[Q_r\cos 4\varphi + U_r\sin 4\varphi\right]}_{k=4}
 $$
-where
-- $\mathcal{M}$ is the set of harmonic modes (e.g. $k = 0, 1, 2, ..., 8$)
-- $A_k$ and $B_k$ are the coefficients to be determined per detectors
+where $Q_r, U_r$ are the Stokes parameters rotated into the detector frame.
+:::
+
+However, real HWPs have imperfections and interact with other optical 
+elements, generating a spurious modulated signal known as the 
+**HWP Synchronous Signal (HWPSS)**. These imperfections include 
+anti-reflection coating mismatches, birefringence inhomogeneities, 
+thermal emission from the HWP, and optical crosstalk with surrounding 
+elements.
+
+The most general model for the HWPSS at time $t$ with HWP angle $\chi(t)$ is:
+$$
+s_\text{hwp}(t) = \sum_{k \in \mathcal{M}} 
+\left[ A_k \cos(k\chi(t)) + B_k \sin(k\chi(t)) \right]
+$$
+where $\mathcal{M}$ is the set of active harmonic modes and $A_k, B_k$ 
+are **per-detector** amplitude coefficients. In real data, harmonics 
+$k = 1, 2, \ldots, 8$ are observed, with the dominant contamination 
+typically at $k = 2$ and $k = 4$.
+
+:::{note} Why $k=4$ is the most dangerous harmonic
+The $k=4$ HWPSS has exactly the same functional form as the sky 
+polarization signal. From the ideal HWP proof above, the sky signal 
+at $k=4$ is $Q_r\cos 4\varphi + U_r\sin 4\varphi$, while a spurious 
+$k=4$ HWPSS contributes $A_4\cos 4\chi + B_4\sin 4\chi$. These are 
+indistinguishable unless the detector orientation angle $\alpha$ varies 
+sufficiently across observations of the same sky pixel, i.e. unless 
+the scan strategy provides adequate **cross-linking**.
+
+The primordial $B$-mode signal is at the level of 
+$r \lesssim 0.01\;\mu\text{K}$, while HWPSS at $k=4$ can be orders 
+of magnitude larger. Even a small residual after template subtraction 
+can bias the $B$-mode power spectrum.
+:::
+
+#### HWPSS template: stationary model
+
+The simplest template assumes that $A_k$ and $B_k$ are **constant in 
+time**. For each harmonic $k \in \mathcal{M}$, we add two columns to 
+the template matrix:
+$$
+(\mathbf{T}_\text{hwp})_{t,2k-1} = \cos(k\chi_t), 
+\qquad 
+(\mathbf{T}_\text{hwp})_{t,2k} = \sin(k\chi_t)
+$$
+so $\mathbf{T}_\text{hwp} \in \mathbb{R}^{N_t \times 2|\mathcal{M}|}$. 
+Marginalising over the coefficient vector 
+$\mathbf{x} = (A_{k_1}, B_{k_1}, \ldots)^T$ via the deprojection 
+operator removes the mean HWPSS from the TOD.
+
+This is the *stationary* HWPSS model. It is optimal when the 
+amplitudes $A_k, B_k$ are truly constant over the observation, 
+but leaves a residual whenever they drift in time.
+
+#### HWPSS template: time-varying model via B-splines
+
+In practice, the HWPSS amplitude drifts slowly over time due to 
+thermal fluctuations of the HWP and surrounding optics. The stationary 
+model therefore leaves a systematic residual:
+$$
+s_\text{hwp}^\text{residual}(t) = \sum_{k \in \mathcal{M}} 
+\left[\delta A_k(t)\cos(k\chi_t) + \delta B_k(t)\sin(k\chi_t)\right]
+$$
+where $\delta A_k(t) = A_k(t) - \bar A_k$ is the time-varying part 
+not captured by the fixed template.
+
+To model this, we promote $A_k$ and $B_k$ to smooth functions of 
+time, expanded in a **cubic B-spline basis**. The HWPSS model becomes:
+$$
+s_\text{hwp}(t) = \sum_{k \in \mathcal{M}} 
+\left[ A_k(t)\cos(k\chi_t) + B_k(t)\sin(k\chi_t) \right]
+$$
+where each amplitude function is:
+$$
+A_k(t) = \sum_{j=1}^{K} \alpha_{kj}\, B_j(t), 
+\qquad 
+B_k(t) = \sum_{j=1}^{K} \beta_{kj}\, B_j(t)
+$$
+and $\{B_j(t)\}_{j=1}^K$ is a set of $K$ cubic B-spline basis 
+functions on the normalized time domain $t \in [0, 1]$.
+
+**B-spline basis construction.** Given $n_\text{knots}$ internal 
+knots placed uniformly on $[0,1]$, the knot vector is:
+$$
+\boldsymbol{\xi} = \bigl(
+  \underbrace{0, 0, 0}_{\text{degree}},\; 
+  \xi_1, \xi_2, \ldots, \xi_{n_\text{knots}},\; 
+  \underbrace{1, 1, 1}_{\text{degree}}
+\bigr)
+$$
+which produces $K = n_\text{knots} + \text{degree} - 1$ basis 
+functions. Each $B_j(t)$ is piecewise cubic and $C^2$-continuous 
+at interior knots, with support on exactly 4 consecutive knot 
+intervals. The clamped endpoints enforce $B_j(0) = B_j(1) = 0$ 
+for interior basis functions, ensuring no extrapolation outside $[0,1]$.

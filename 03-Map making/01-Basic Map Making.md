@@ -949,8 +949,7 @@ but leaves a residual whenever they drift in time.
 
 #### HWPSS template: time-varying model via B-splines
 
-In practice, the HWPSS amplitude drifts slowly over time due to 
-thermal fluctuations of the HWP and surrounding optics. The stationary 
+In practice, the HWPSS amplitude drifts slowly over time due to atmosphere, ground pickup, etc [*this need to be checked*]. The stationary 
 model therefore leaves a systematic residual:
 $$
 s_\text{hwp}^\text{residual}(t) = \sum_{k \in \mathcal{M}} 

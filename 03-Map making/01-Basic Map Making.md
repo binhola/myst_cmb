@@ -25,7 +25,7 @@ $$
 \underbrace{\begin{pmatrix} I_1 \\ Q_1 \\ U_1 \\ \vdots \\ I_{N_p} \\ Q_{N_p} \\ U_{N_p} \end{pmatrix}}_{3N_p \times 1},
 $$
 
-where $\mathbf{r}_t = \bigl(1,\; \cos(-2\varphi_t+4\psi_t),\; \sin(-2\varphi_t+4\psi_t)\bigr)$ is placed in the three columns corresponding to the pixel $p(t)$ observed at time $t$.
+where $\mathbf{r}_t = \bigl(1,\; \cos(2\varphi_t+4\psi_t),\; \sin(2\varphi_t+4\psi_t)\bigr)$ is placed in the three columns corresponding to the pixel $p(t)$ observed at time $t$.
 
 :::{prf:example} A 2-pixel universe
 :class:dropdown
@@ -45,14 +45,14 @@ $$
 \begin{pmatrix} I_1 \\ Q_1 \\ U_1 \\ I_2 \\ Q_2 \\ U_2 \end{pmatrix},
 $$
 
-with $\theta_t = -2\varphi_t + 4\psi_t$.
+with $\theta_t = 4\varphi_t + 2\alpha_t$.
 
 **Assumptions**:
 
 - HWP rotation frequency: $f_{\text{HWP}} = 2\ \text{Hz}$  
   → HWP angle $\varphi_t = 2\pi f_{\text{HWP}} t = 4\pi t$ (radians)
-- Detector orientation: $\psi_t = 0^\circ$ (constant)
-- Modulation angle: $\theta_t = -2\varphi_t + 4\psi_t = -8\pi t$
+- Detector orientation: $\alpha_t = 0^\circ$ (constant)
+- Modulation angle: $\theta_t = 4\varphi_t + 2\alpha_t = -8\pi t$
 - Sampling times: $t = 0.1,\ 0.2,\ 0.3,\ 0.1,\ 0.5\ \text{s}$ (10 Hz sampling, one repeated sample)
 - Stokes parameters:
 
@@ -949,8 +949,7 @@ but leaves a residual whenever they drift in time.
 
 #### HWPSS template: time-varying model via B-splines
 
-In practice, the HWPSS amplitude drifts slowly over time due to atmosphere, ground pickup, etc [*this need to be checked*]. The stationary 
-model therefore leaves a systematic residual:
+In practice, the HWPSS amplitude drifts slowly over time due to atmosphere, ground pickup, etc [*this need to be checked*]. The stationary model therefore leaves a systematic residual:
 $$
 s_\text{hwp}^\text{residual}(t) = \sum_{k \in \mathcal{M}} 
 \left[\delta A_k(t)\cos(k\chi_t) + \delta B_k(t)\sin(k\chi_t)\right]

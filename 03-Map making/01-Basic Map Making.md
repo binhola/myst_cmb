@@ -792,9 +792,9 @@ This reduces to a purely diagonal filter.
 
 - For $1/f$ noise, however, the low-frequency members of each aliasing class carry more power, and this excess power leaks into higher frequencies.
 :::
-#### Choosing $\tau$
+<!-- #### Choosing $\tau$
 
-[*should update but too lazy*]
+[*should update but too lazy*] -->
 
 ### Orthogonal Templates
 For the real experiments, we always have masks:

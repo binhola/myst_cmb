@@ -52,8 +52,8 @@ with $\theta_t = 4\varphi_t + 2\alpha_t$.
 - HWP rotation frequency: $f_{\text{HWP}} = 2\ \text{Hz}$  
   → HWP angle $\varphi_t = 2\pi f_{\text{HWP}} t = 4\pi t$ (radians)
 - Detector orientation: $\alpha_t = 0^\circ$ (constant)
-- Modulation angle: $\theta_t = 4\varphi_t + 2\alpha_t = -8\pi t$
-- Sampling times: $t = 0.1,\ 0.2,\ 0.3,\ 0.1,\ 0.5\ \text{s}$ (10 Hz sampling, one repeated sample)
+- Modulation angle: $\theta_t = 4\varphi_t + 2\alpha_t = 16\pi t$
+- Sampling times: $t = 0.1,\ 0.2,\ 0.3,\ 0.1,\ 0.5\ \text{s}$ (10 Hz sampling, one repeated sample)
 - Stokes parameters:
 
 $$
@@ -65,22 +65,23 @@ $$
 
 **Compute $\cos\theta_t$ and $\sin\theta_t$**
 
-| $t$ (s) | $\theta_t = -8\pi t$ (rad) | $\cos\theta_t$ | $\sin\theta_t$ |
+| $t$ (s) | $\theta_t = 16\pi t$ (rad) | $\cos\theta_t$ | $\sin\theta_t$ |
 |-----------|-------------------------------|------------------|------------------|
-| 0.1       | $-0.8\pi$                    | $-0.809017$    | $-0.587785$    |
-| 0.2       | $-1.6\pi$                    | $0.309017$     | $0.951057$     |
-| 0.3       | $-2.4\pi$                    | $0.309017$     | $-0.951057$    |
-| 0.5       | $-4\pi$                      | $1$            | $0$            |
+| 0.1       | $1.6\pi$                     | $0.309017$     | $-0.951057$    |
+| 0.2       | $3.2\pi$                     | $0.309017$     | $0.951057$     |
+| 0.3       | $4.8\pi$                     | $0.809017$     | $0.587785$     |
+| 0.1       | $1.6\pi$                     | $0.309017$     | $-0.951057$    |
+| 0.5       | $8\pi$                       | $1$            | $0$            |
 
 **Pointing matrix $\mathbf{P}$**
 
 $$
 \mathbf{P} =
 \begin{pmatrix}
-1 & -0.809017 & -0.587785 & 0 & 0 & 0 \\
-0 & 0 & 0 & 1 & 0.309017 & 0.951057 \\
 1 & 0.309017 & -0.951057 & 0 & 0 & 0 \\
-1 & -0.809017 & -0.587785 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0.309017 & 0.951057 \\
+1 & 0.809017 & 0.587785 & 0 & 0 & 0 \\
+1 & 0.309017 & -0.951057 & 0 & 0 & 0 \\
 0 & 0 & 0 & 1 & 1 & 0
 \end{pmatrix}
 $$
@@ -94,20 +95,22 @@ $$
 **Time-ordered data**
 
 $$
-d_1 &= 1\cdot1.0 + (-0.809017)\cdot0.5 + (-0.587785)\cdot0.3 \\
-    &= 1.0 - 0.4045085 - 0.1763355 = 0.419156 \\
+\begin{aligned}
+d_1 &= 1\cdot1.0 + 0.309017\cdot0.5 + (-0.951057)\cdot0.3 \\
+    &= 1.0 + 0.154509 - 0.285317 = 0.869191 \\
 d_2 &= 1\cdot0.8 + 0.309017\cdot(-0.2) + 0.951057\cdot0.4 \\
-    &= 0.8 - 0.0618034 + 0.3804228 = 1.1186194 \\
-d_3 &= 1\cdot1.0 + 0.309017\cdot0.5 + (-0.951057)\cdot0.3 \\
-    &= 1.0 + 0.1545085 - 0.2853171 = 0.8691914  \\
-d_4 &= d_1 = 0.419156 \\
+    &= 0.8 - 0.061803 + 0.380423 = 1.118619 \\
+d_3 &= 1\cdot1.0 + 0.809017\cdot0.5 + 0.587785\cdot0.3 \\
+    &= 1.0 + 0.404509 + 0.176336 = 1.580844 \\
+d_4 &= d_1 = 0.869191 \\
 d_5 &= 1\cdot0.8 + 1\cdot(-0.2) + 0\cdot0.4 = 0.8 - 0.2 = 0.6.
+\end{aligned}
 $$
 
 Thus the TOD vector is:
 
 $$
-\mathbf{d} = \begin{pmatrix} 0.4192 \\ 1.1186 \\ 0.8692 \\ 0.4192 \\ 0.6 \end{pmatrix}.
+\mathbf{d} = \begin{pmatrix} 0.8692 \\ 1.1186 \\ 1.5808 \\ 0.8692 \\ 0.6 \end{pmatrix}.
 $$
 :::
 

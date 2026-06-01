@@ -968,11 +968,11 @@ s_\text{hwp}(t) = \sum_{k \in \mathcal{M}}
 $$
 where each amplitude function is:
 $$
-A_k(t) = \sum_{j=1}^{K} \alpha_{kj}\, B_j(t), 
+A_k(t) = \sum_{j=1}^{K} \alpha_{kj}\, \phi_j(t), 
 \qquad 
-B_k(t) = \sum_{j=1}^{K} \beta_{kj}\, B_j(t)
+B_k(t) = \sum_{j=1}^{K} \beta_{kj}\, \phi_j(t)
 $$
-and $\{B_j(t)\}_{j=1}^K$ is a set of $K$ cubic B-spline basis 
+and $\{\phi_j(t)\}_{j=1}^K$ is a set of $K$ cubic B-spline basis 
 functions on the normalized time domain $t \in [0, 1]$.
 
 **B-spline basis construction.** Given $n_\text{knots}$ internal 
@@ -985,7 +985,161 @@ $$
 \bigr)
 $$
 which produces $K = n_\text{knots} + \text{degree} - 1$ basis 
-functions. Each $B_j(t)$ is piecewise cubic and $C^2$-continuous 
+functions. Each $\phi_j(t)$ is piecewise cubic and $C^2$-continuous 
 at interior knots, with support on exactly 4 consecutive knot 
-intervals. The clamped endpoints enforce $B_j(0) = B_j(1) = 0$ 
+intervals. The clamped endpoints enforce $\phi_j(0) = \phi_j(1) = 0$ 
 for interior basis functions, ensuring no extrapolation outside $[0,1]$.
+
+### Spline + POMME Deprojection
+We extend the standard POMME model to jointly deproject slow
+atmospheric drifts, time-varying HWPSS, and flagged samples.
+The full TOD model is:
+
+$$
+\mathbf{d} = \mathbf{P}\mathbf{s}
+           + \mathbf{T}_1 \mathbf{x}_1
+           + \mathbf{T}_3 \mathbf{x}_3
+           + \mathbf{T}_2 \mathbf{x}_2
+           + \mathbf{n}
+$$
+
+where the four terms on the right are the sky signal, the slow
+drift, the time-varying HWPSS, and the flagged samples,
+respectively.
+
+**Sky signal** $\mathbf{P}\mathbf{s}$: the pointing matrix
+$\mathbf{P}$ maps the Stokes parameters $(Q, U)$ at each pixel
+to the TOD via
+
+$$
+(\mathbf{P}\mathbf{s})_t = Q_{p(t)}\cos\theta_t + U_{p(t)}\sin\theta_t,
+\qquad \theta_t = 2\psi_t + 4\varphi_t
+$$
+
+where $\psi_t$ is the detector orientation angle and $\varphi_t$
+is the HWP rotation angle at time $t$. The intensity $I$ is
+absorbed into the POMME templates.
+
+**POMME templates** $\mathbf{T}_1$: one column per
+complete block of length $\tau$,
+
+$$
+T_{1,t}^{(i)} = \begin{cases}
+1 & i\tau \leq t < (i+1)\tau \\
+0 & \text{otherwise}
+\end{cases}
+$$
+
+The amplitude vector $\mathbf{x}_1 \in \mathbb{R}^B$ (where
+$B = \lfloor N_t/\tau \rfloor$ is the number of complete blocks)
+represents the unknown drift level in each block. Marginalising
+over $\mathbf{x}_1$ subtracts the block mean from every sample.
+
+**HWPSS spline templates** $\mathbf{T}_3$: a time-varying
+HWPSS amplitude at harmonic $4f_{\rm HWP}$ is modelled as
+
+$$
+\text{HWPSS}(t) = A(t)\cos(4\varphi_t) + B(t)\sin(4\varphi_t)
+$$
+
+where $A(t)$ and $B(t)$ are smooth functions represented by a
+cubic B-spline basis $\{\phi_j(t)\}_{j=0}^{K-1}$ with $K$ knots:
+
+$$
+A(t) = \sum_{i=0}^{K-1} \alpha_i \phi_i(t), \qquad
+B(t) = \sum_{i=0}^{K-1} \beta_i \phi_i(t)
+$$
+
+```{figure} #bspline_basis
+:width: 100%
+:label: bspline
+```
+
+The template matrix $\mathbf{T}_3 \in \mathbb{R}^{N_t \times 2K}$
+has columns
+
+$$
+\mathbf{T}_3 =
+\Bigl[
+\underbrace{\phi_0(t)\cos 4\varphi_t,\ \phi_0(t)\sin 4\varphi_t,}_{\text{knot }0}
+\ \ldots\ ,
+\underbrace{\phi_{K-1}(t)\cos 4\varphi_t,\ \phi_{K-1}(t)\sin 4\varphi_t}_{\text{knot }K-1}
+\Bigr]
+$$
+
+The coefficient vector $\mathbf{x}_3 = (a_0, b_0, \ldots,
+a_{K-1}, b_{K-1})^T \in \mathbb{R}^{2K}$ contains the spline
+amplitudes, which are marginalised jointly with $\mathbf{x}_1$.
+
+For $H$ harmonics $\mathcal{H} = \{h_1, h_2, \ldots, h_H\}$,
+$\mathbf{T}_3$ has $2HK$ columns, with one pair
+$(B_i(t)\cos h\varphi_t,\ B_i(t)\sin h\varphi_t)$ per harmonic
+per knot. Because POMME will only deproject the signal at $4f_{\rm HWP}$, practically we will only use $K = 4$.
+
+
+```{figure} #T_3
+:width: 100%
+:label: T3
+```
+**Mask templates** $\mathbf{T}_2$: one column per flagged
+sample,
+
+$$
+T_{2,t}^{(j)} = \begin{cases}
+1 & t = t_j \text{ (flagged)} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+
+The amplitude vector $\mathbf{x}_2$ contains the unknown values
+of the flagged samples, which are marginalised so that they
+contribute nothing to the map.
+
+We will orthogonalized $\mathbf{T}_3$ and $\mathbf{T}_1$ by apply the POMME deprojection operator on $\mathbf{T}_3$, so we will have
+$$
+\mathbf{\tilde{T}}_3 = \mathbf{D}_{\mathbf{T}_1} \mathbf{T}_3
+$$
+
+```{figure} #T_3_ortho
+:width: 100%
+:label: T3_ortho
+Pomme deprojection with $\tau = 36$ is shown in dashed gray.
+```
+
+The solution would be
+$$
+\mathbf{\hat s} = (\mathbf{P} \mathbf{N}^{-1} \mathbf{D}_{\mathbf{T}} \mathbf{P})^{-1} \mathbf{P}^T \mathbf{N}^{-1} \mathbf{D}_{\mathbf{T}} \mathbf{d}
+$$
+where
+$$
+\mathbf{D}_{\mathbf{T}} = \mathbf{D}_{\mathbf{T}_1} \mathbf{D}_{\mathbf{T}_2} \mathbf{D_{\mathbf{\tilde{T}}_3}}
+$$
+and
+$$
+\mathbf{D}_{\mathbf{T}_x} = \mathbf{I} - \mathbf{T}_{x}(\mathbf{T}_x^T \mathbf{N}^{-1} \mathbf{T}_x)^{-1} \mathbf{T}_x^T \mathbf{N}^{-1}
+$$
+
+Under the assumption that the noise is approximately white after POMME deprojection, the main computational challenge reduces to inverting the matrix $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$. We note that $\mathbf{T}_3$ depends only on the HWP angles and is therefore identical for all detectors. Furthermore, using a knot spacing of approximately $20,\mathrm{s}$ (corresponding to $\sim 4000$ samples at a sampling frequency of $f_s = 200,\mathrm{Hz}$), the HWPSS can be modeled and removed down to the noise floor.
+
+
+For an atomic observation lasting one hour, the maximum number of spline coefficients is approximately $180$, leading to a matrix of size at most $360 \times 360$ to invert when fitting both sine and cosine components. Such a matrix is relatively small and inexpensive to handle computationally. In addition, $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$ is nearly tridiagonal due to the local support of the B-spline basis functions, which further simplifies the inversion.
+
+
+```{figure} #AtA_ortho
+:width: 100%
+:label: AtA
+The matrix $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$
+```
+
+```{figure} #AtA_ortho_inv
+:width: 100%
+:label: AtA_inv
+The inverse matrix $(\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3)^{-1}$
+```
+
+We can demonstrate the subtraction of time-dependent HWPSS template as follow
+```{figure} #demo_T3
+:width: 100%
+:label: AtA
+Subtraction with orthogonalised $\tilde{\mathbf{T}_3}$, dashed is POMME block boundaries
+```

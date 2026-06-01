@@ -1119,7 +1119,7 @@ $$
 \mathbf{D}_{\mathbf{T}_x} = \mathbf{I} - \mathbf{T}_{x}(\mathbf{T}_x^T \mathbf{N}^{-1} \mathbf{T}_x)^{-1} \mathbf{T}_x^T \mathbf{N}^{-1}
 $$
 
-Under the assumption that the noise is approximately white after POMME deprojection, the main computational challenge reduces to inverting the matrix $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$. We note that $\mathbf{T}_3$ depends only on the HWP angles and is therefore identical for all detectors. Furthermore, using a knot spacing of approximately $20,\mathrm{s}$ (corresponding to $\sim 4000$ samples at a sampling frequency of $f_s = 200,\mathrm{Hz}$), the HWPSS can be modeled and removed down to the noise floor.
+Under the assumption that the noise is approximately white after POMME deprojection, the main computational challenge reduces to inverting the matrix $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$. We note that $\mathbf{T}_3$ depends only on the HWP angles and is therefore identical for all detectors. Furthermore, using a knot spacing of approximately $20\,\mathrm{s}$ (corresponding to $\sim 4000$ samples at a sampling frequency of $f_s = 200\,\mathrm{Hz}$), the HWPSS can be modeled and removed down to the noise floor.
 
 
 For an atomic observation lasting one hour, the maximum number of spline coefficients is approximately $180$, leading to a matrix of size at most $360 \times 360$ to invert when fitting both sine and cosine components. Such a matrix is relatively small and inexpensive to handle computationally. In addition, $\mathbf{\tilde{T}}_3^T \mathbf{\tilde{T}}_3$ is nearly tridiagonal due to the local support of the B-spline basis functions, which further simplifies the inversion.

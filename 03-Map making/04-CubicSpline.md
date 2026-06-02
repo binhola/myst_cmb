@@ -265,9 +265,9 @@ where the cross term vanishes by integration by parts and the natural boundary c
 
 ### Matrix form of the smoothing spline
 
-Since the solution is a natural cubic spline, we can write $S(t) = \sum_{j} \alpha_j B_j(t)$ in terms of a spline basis. Let $\mathbf{B}$ be the $n+1 \times n+1$ basis evaluation matrix with $B_{ij} = B_j(t_i)$, and let $\mathbf{\Omega}$ be the **penalty matrix** with entries:
+Since the solution is a natural cubic spline, we can write $S(t) = \sum_{j} \alpha_j \phi_j(t)$ in terms of a spline basis. Let $\mathbf{B}$ be the $n+1 \times n+1$ basis evaluation matrix with $\phi_{ij} = \phi_j(t_i)$, and let $\mathbf{\Omega}$ be the **penalty matrix** with entries:
 $$
-\Omega_{jk} = \int_{t_0}^{t_n} B_j''(t)\, B_k''(t)\, \mathrm{d}t
+\Omega_{jk} = \int_{t_0}^{t_n} \phi_j''(t)\, \phi_k''(t)\, \mathrm{d}t
 $$
 
 The smoothing spline problem becomes:

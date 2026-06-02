@@ -1073,7 +1073,7 @@ amplitudes, which are marginalised jointly with $\mathbf{x}_1$.
 
 For $H$ harmonics $\mathcal{H} = \{h_1, h_2, \ldots, h_H\}$,
 $\mathbf{T}_3$ has $2HK$ columns, with one pair
-$(B_i(t)\cos h\varphi_t,\ B_i(t)\sin h\varphi_t)$ per harmonic
+$(\phi_i(t)\cos h\varphi_t,\ \phi_i(t)\sin h\varphi_t)$ per harmonic
 per knot. Because POMME will only project the signal at $4f_{\rm HWP}$, practically we will only use $K = 4$.
 
 

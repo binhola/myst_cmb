@@ -48,7 +48,7 @@ $$
 \text{DOF} = (d+1)n - d(n-1) = n + d
 $$
 
-For $d = 3$ (cubic spline): $\text{DOF} = n + 3$. The $n+1$ interpolation conditions $S(t_i) = y_i$ use $n+1$ of these, leaving $2$ free — which are fixed by **boundary conditions**.
+For $d = 3$ (cubic spline): $\text{DOF} = n + 3$. The $n+1$ interpolation conditions $S(t_i) = y_i$ use $n+1$ of these, leaving $2$ free, which are fixed by **boundary conditions**.
 
 ---
 
@@ -310,7 +310,7 @@ This gives $K = p + d + 1$ basis functions and ensures the spline interpolates t
 
 ### Cox–de Boor recursion
 
-The B-spline basis functions $\{B_{j,d}(t)\}_{j=0}^{K-1}$ of degree $d$ are defined recursively.
+The B-spline basis functions $\{\phi_{j,d}(t)\}_{j=0}^{K-1}$ of degree $d$ are defined recursively.
 
 **Base case** ($d = 0$, piecewise constant):
 $$
@@ -319,7 +319,7 @@ $$
 
 **Recursion** ($d \geq 1$):
 $$
-B_{j,d}(t) = \frac{t - \xi_j}{\xi_{j+d} - \xi_j} B_{j,d-1}(t) + \frac{\xi_{j+d+1} - t}{\xi_{j+d+1} - \xi_{j+1}} B_{j+1,d-1}(t)
+\phi_{j,d}(t) = \frac{t - \xi_j}{\xi_{j+d} - \xi_j} \phi_{j,d-1}(t) + \frac{\xi_{j+d+1} - t}{\xi_{j+d+1} - \xi_{j+1}} \phi_{j+1,d-1}(t)
 $$
 
 with the convention $0/0 = 0$.
@@ -328,15 +328,15 @@ with the convention $0/0 = 0$.
 :class: dropdown
 Let $\boldsymbol{\xi} = (0, 0, 0.5, 1, 1)$ giving $K = 3$ basis functions of degree 1.
 
-- $B_{0,0}(t) = 1$ for $t \in [0, 0.5)$, else $0$
-- $B_{1,0}(t) = 1$ for $t \in [0.5, 1)$, else $0$
+- $\phi_{0,0}(t) = 1$ for $t \in [0, 0.5)$, else $0$
+- $\phi_{1,0}(t) = 1$ for $t \in [0.5, 1)$, else $0$
 
 Then:
 $$
-B_{0,1}(t) = \frac{t - 0}{0.5 - 0} B_{0,0}(t) + \frac{1 - t}{1 - 0} B_{1,0}(t)
+\phi_{0,1}(t) = \frac{t - 0}{0.5 - 0} \phi_{0,0}(t) + \frac{1 - t}{1 - 0} B_{1,0}(t)
 $$
 
-On $[0, 0.5)$: $B_{0,1}(t) = 2t$. On $[0.5, 1)$: $B_{0,1}(t) = 1 - t$. Elsewhere: $0$. This is a hat function with peak at $t = 0.5$.
+On $[0, 0.5)$: $\phi_{0,1}(t) = 2t$. On $[0.5, 1)$: $\phi_{0,1}(t) = 1 - t$. Elsewhere: $0$. This is a hat function with peak at $t = 0.5$.
 :::
 
 ### Properties of B-splines

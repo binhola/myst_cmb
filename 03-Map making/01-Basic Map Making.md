@@ -1095,10 +1095,15 @@ The amplitude vector $\mathbf{x}_2$ contains the unknown values
 of the flagged samples, which are marginalised so that they
 contribute nothing to the map.
 
-We will orthogonalized $\mathbf{T}_3$ and $\mathbf{T}_1$ by apply the POMME deprojection operator on $\mathbf{T}_3$, so we will have
+We orthogonalize $\mathbf{T}_3$ with respect to $\mathbf{T}_1$ and $\mathbf{T}_2$ using sequential POMME deprojection. The resulting template is
+
 $$
-\mathbf{\tilde{T}}_3 = \mathbf{D}_{\mathbf{T}_1} \mathbf{T}_3
+\mathbf{\tilde{T}}*3 = \mathbf{D}*{\mathbf{T}*1},\mathbf{D}*{\mathbf{\tilde{T}}_2},\mathbf{T}_3.
 $$
+
+This procedure ensures that $\mathbf{\tilde{T}}_3$ has no residual components along the directions spanned by $\mathbf{T}_1$ and $\mathbf{\tilde{T}}_2$, implemented through sequential projection-out steps.
+
+In practice, detector-dependent masking would require storing a distinct template set for each detector, which is memory intensive. To alleviate this, we approximate the masking by using a single scanning mask for all detectors and neglect detector-specific sample masks when constructing $\mathbf{\tilde{T}}_2$.
 
 ```{figure} #T_3_ortho
 :width: 100%

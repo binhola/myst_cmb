@@ -1113,7 +1113,7 @@ contribute nothing to the map.
 We orthogonalize $\mathbf{T}_3$ with respect to $\mathbf{T}_1$ and $\mathbf{T}_2$ using sequential POMME deprojection. The resulting template is
 
 $$
-\mathbf{\tilde{T}}*3 = \mathbf{D}*{\mathbf{T}*1},\mathbf{D}*{\mathbf{\tilde{T}}_2},\mathbf{T}_3.
+\mathbf{\tilde{T}}_3 = \mathbf{D}_{\mathbf{T}_1},\mathbf{D}_{\mathbf{\tilde{T}}_2},\mathbf{T}_3.
 $$
 
 This procedure ensures that $\mathbf{\tilde{T}}_3$ has no residual components along the directions spanned by $\mathbf{T}_1$ and $\mathbf{\tilde{T}}_2$, implemented through sequential projection-out steps.

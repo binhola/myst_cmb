@@ -1050,6 +1050,21 @@ A(t) = \sum_{i=0}^{K-1} \alpha_i \phi_i(t), \qquad
 B(t) = \sum_{i=0}^{K-1} \beta_i \phi_i(t)
 $$
 
+and 
+
+$$
+\phi(t) =
+\begin{cases}
+\dfrac{1}{6}\,u^3, & 0 \le u < 1,\\[8pt]
+\dfrac{1}{6}\bigl(-3u^3 + 12u^2 - 12u + 4\bigr), & 1 \le u < 2,\\[8pt]
+\dfrac{1}{6}\bigl(3u^3 - 24u^2 + 60u - 44\bigr), & 2 \le u < 3,\\[8pt]
+\dfrac{1}{6}\,(4 - u)^3, & 3 \le u < 4,\\[8pt]
+0, & \text{otherwise},
+\end{cases}
+\qquad
+u = \frac{t - t_i}{\Delta t}.
+$$
+
 ```{figure} #bspline_basis
 :width: 100%
 :label: bspline

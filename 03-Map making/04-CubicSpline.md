@@ -314,7 +314,7 @@ The B-spline basis functions $\{\phi_{j,d}(t)\}_{j=0}^{K-1}$ of degree $d$ are d
 
 **Base case** ($d = 0$, piecewise constant):
 $$
-B_{j,0}(t) = \begin{cases} 1 & \xi_j \leq t < \xi_{j+1} \\ 0 & \text{otherwise} \end{cases}
+\phi_{j,0}(t) = \begin{cases} 1 & \xi_j \leq t < \xi_{j+1} \\ 0 & \text{otherwise} \end{cases}
 $$
 
 **Recursion** ($d \geq 1$):
@@ -333,7 +333,7 @@ Let $\boldsymbol{\xi} = (0, 0, 0.5, 1, 1)$ giving $K = 3$ basis functions of deg
 
 Then:
 $$
-\phi_{0,1}(t) = \frac{t - 0}{0.5 - 0} \phi_{0,0}(t) + \frac{1 - t}{1 - 0} B_{1,0}(t)
+\phi_{0,1}(t) = \frac{t - 0}{0.5 - 0} \phi_{0,0}(t) + \frac{1 - t}{1 - 0} \phi_{1,0}(t)
 $$
 
 On $[0, 0.5)$: $\phi_{0,1}(t) = 2t$. On $[0.5, 1)$: $\phi_{0,1}(t) = 1 - t$. Elsewhere: $0$. This is a hat function with peak at $t = 0.5$.
@@ -343,24 +343,24 @@ On $[0, 0.5)$: $\phi_{0,1}(t) = 2t$. On $[0.5, 1)$: $\phi_{0,1}(t) = 1 - t$. Els
 
 1. **Local support:** $B_{j,d}(t) = 0$ for $t \notin [\xi_j, \xi_{j+d+1}]$. Each basis function is nonzero on at most $d+1$ consecutive intervals.
 
-2. **Partition of unity:** $\displaystyle\sum_{j=0}^{K-1} B_{j,d}(t) = 1$ for all $t \in [\xi_0, \xi_{K+d}]$.
+2. **Partition of unity:** $\displaystyle\sum_{j=0}^{K-1} \phi_{j,d}(t) = 1$ for all $t \in [\xi_0, \xi_{K+d}]$.
 
-3. **Non-negativity:** $B_{j,d}(t) \geq 0$ for all $t$.
+3. **Non-negativity:** $\phi_{j,d}(t) \geq 0$ for all $t$.
 
-4. **Smoothness:** At a simple interior knot, $B_{j,d} \in C^{d-1}$. At a knot of multiplicity $m$, continuity is $C^{d-m}$.
+4. **Smoothness:** At a simple interior knot, $\phi_{j,d} \in C^{d-1}$. At a knot of multiplicity $m$, continuity is $C^{d-m}$.
 
-5. **Interpolation at endpoints:** For a clamped knot vector, $B_{0,d}(a) = B_{K-1,d}(b) = 1$.
+5. **Interpolation at endpoints:** For a clamped knot vector, $\phi_{0,d}(a) = \phi_{K-1,d}(b) = 1$.
 
 ### Basis matrix
 
 Given evaluation points $t_0, \ldots, t_{N-1}$, define the **basis matrix**:
 $$
-\mathbf{B} \in \mathbb{R}^{N \times K}, \qquad \mathbf{B}_{ij} = B_{j,d}(t_i)
+\mathbf{\phi} \in \mathbb{R}^{N \times K}, \qquad \mathbf{\phi}_{ij} = \phi_{j,d}(t_i)
 $$
 
-Each row sums to 1 (partition of unity). Each column has at most $d+1$ nonzero blocks, so $\mathbf{B}$ is **banded sparse**.
+Each row sums to 1 (partition of unity). Each column has at most $d+1$ nonzero blocks, so $\mathbf{\phi}$ is **banded sparse**.
 
-A spline $S(t) = \sum_j \alpha_j B_{j,d}(t)$ evaluated at all points is simply $\mathbf{B}\boldsymbol{\alpha}$.
+A spline $S(t) = \sum_j \alpha_j \phi_{j,d}(t)$ evaluated at all points is simply $\mathbf{\phi}\boldsymbol{\alpha}$.
 
 <!-- ```python
 import numpy as np

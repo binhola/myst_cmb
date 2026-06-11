@@ -779,6 +779,12 @@ Using Parseval’s identity within the aliasing class,
 $$
 \sum_{k' \equiv k \text{ mod } B} |C_{k'}|^2 = \tau N / B = \tau^2
 $$
+
+So, we have
+$$
+\sum_{\substack{k' \equiv k \ \mathrm{mod}\ B \\ k' \neq k}} |C_{k'}|^2 = \tau^2 - |C_{k}|^2
+$$
+
 we obtain
 $$
 \boxed{

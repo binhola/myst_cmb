@@ -782,7 +782,7 @@ $$
 we obtain
 $$
 \boxed{
-\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)}
+\left.P_k^{\text {deproj }}\right|_{\text {white }}=\sigma^2\left(1-\frac{\left|C_k\right|^2}{\tau^2}\right)^2}
 $$
 
 This reduces to a purely diagonal filter. 
